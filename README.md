@@ -333,6 +333,6 @@ This project is developed for hackathon purposes. All rights reserved.
 ## Acknowledgments
 
 - **ISRO** - For providing satellite data access and guidance
-- **Ahmedabad University** - For organizing the hackathon
+- **Pandit Deendayal Energy University** - For organizing the hackathon
 - **Google Earth Engine** - For satellite data processing
 - **OpenStreetMap** - For base map data
