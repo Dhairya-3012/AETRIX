@@ -1,0 +1,178 @@
+{
+  "uhi_detection": {
+    "model_name": "UHI Detection (Random Forest Regressor)",
+    "task_type": "Regression",
+    "test_metrics": {
+      "r2_score": 0.7474,
+      "mae": 0.2658,
+      "rmse": 0.341,
+      "mape": 0.79
+    },
+    "cross_validation": {
+      "cv_folds": 5,
+      "cv_r2_mean": 0.6531,
+      "cv_r2_std": 0.0767,
+      "cv_scores": [
+        0.7341,
+        0.5142,
+        0.6483,
+        0.6565,
+        0.7126
+      ]
+    },
+    "anomaly_detection": {
+      "total_points": 400,
+      "anomalies_detected": 28,
+      "anomaly_percentage": 7.0
+    },
+    "clustering": {
+      "hotspot_zones": 4,
+      "clustered_points": 17
+    }
+  },
+  "vegetation_stress": {
+    "model_name": "Vegetation Health Classifier (Random Forest)",
+    "task_type": "Classification",
+    "classes": [
+      "Barren",
+      "Healthy",
+      "Stressed"
+    ],
+    "test_metrics": {
+      "accuracy": 0.9875,
+      "precision_macro": 0.9722,
+      "recall_macro": 0.9937,
+      "f1_macro": 0.9823
+    },
+    "cross_validation": {
+      "cv_folds": 5,
+      "cv_accuracy_mean": 0.995,
+      "cv_accuracy_std": 0.0061,
+      "cv_scores": [
+        0.9875,
+        1.0,
+        0.9875,
+        1.0,
+        1.0
+      ]
+    },
+    "confusion_matrix": [
+      [
+        16,
+        0,
+        0
+      ],
+      [
+        0,
+        11,
+        0
+      ],
+      [
+        0,
+        1,
+        52
+      ]
+    ],
+    "class_distribution": {
+      "Barren": 81,
+      "Healthy": 56,
+      "Stressed": 263
+    },
+    "feature_importance_r2": 0.8445
+  },
+  "pollution_hotspot": {
+    "model_name": "Pollution Risk Classifier (Random Forest)",
+    "task_type": "Classification",
+    "classes": [
+      "Critical",
+      "High",
+      "Low",
+      "Medium"
+    ],
+    "test_metrics": {
+      "accuracy": 0.95,
+      "precision_macro": 0.9614,
+      "recall_macro": 0.9614,
+      "f1_macro": 0.9614
+    },
+    "cross_validation": {
+      "cv_folds": 5,
+      "cv_accuracy_mean": 0.9225,
+      "cv_accuracy_std": 0.0242,
+      "cv_scores": [
+        0.9625,
+        0.9125,
+        0.9,
+        0.9375,
+        0.9
+      ]
+    },
+    "risk_score_stats": {
+      "mean": 43.91,
+      "std": 13.21,
+      "min": 4.18,
+      "max": 84.5
+    },
+    "anomaly_detection": {
+      "extreme_outliers": 11
+    },
+    "clustering": {
+      "pollution_clusters": 7
+    }
+  },
+  "trend_forecast": {
+    "model_name": "LST Prediction (Random Forest Regressor)",
+    "task_type": "Regression",
+    "test_metrics": {
+      "r2_score": 0.7062,
+      "mae": 0.2847,
+      "rmse": 0.3678,
+      "mape": 0.85
+    },
+    "cross_validation": {
+      "cv_folds": 5,
+      "cv_r2_mean": 0.6743,
+      "cv_r2_std": 0.076,
+      "cv_scores": [
+        0.7831,
+        0.5695,
+        0.6099,
+        0.6984,
+        0.7104
+      ]
+    },
+    "feature_importance": {
+      "NDVI_Landsat": 0.2672,
+      "lat": 0.2317,
+      "lng": 0.1997,
+      "NDVI": 0.1295,
+      "NDVI_Sentinel": 0.0931,
+      "sm_surface": 0.0787
+    },
+    "forecast": {
+      "method": "Linear Trend Extrapolation",
+      "forecast_steps": 30
+    }
+  },
+  "summary": {
+    "total_models": 4,
+    "regression_models": {
+      "count": 2,
+      "average_r2": 0.7268,
+      "models": [
+        "UHI Detection",
+        "Trend Forecast"
+      ]
+    },
+    "classification_models": {
+      "count": 2,
+      "average_accuracy": 0.9688,
+      "models": [
+        "Vegetation Stress",
+        "Pollution Hotspot"
+      ]
+    },
+    "overall_performance": "Good"
+  },
+  "evaluated_at": "2026-03-21T19:19:45.688590"
+}

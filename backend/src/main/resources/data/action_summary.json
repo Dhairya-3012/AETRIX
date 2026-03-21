@@ -1,0 +1,10 @@
+{
+  "city": "Ahmedabad",
+  "last_generated": "2026-03-21T19:18:19.239123",
+  "total_actions": 9,
+  "high_priority": 7,
+  "medium_priority": 2,
+  "low_priority": 0,
+  "top_action": "PCB inspection of Narol Industrial Cluster",
+  "satellite_findings": "28 heat anomalies, 12 critical vegetation stress points, 7 pollution clusters detected"
+}

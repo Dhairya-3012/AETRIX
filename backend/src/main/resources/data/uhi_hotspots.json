@@ -1,0 +1,147 @@
+{
+  "city": "Ahmedabad",
+  "total_hotspot_zones": 4,
+  "hotspots": [
+    {
+      "zone_id": 3,
+      "zone_name": "South Ahmedabad Residential Zone",
+      "center_lat": 22.94971,
+      "center_lng": 72.563663,
+      "point_count": 4,
+      "avg_lst_celsius": 35.61,
+      "max_lst_celsius": 36.47,
+      "min_lst_celsius": 35.12,
+      "severity": "High",
+      "boundary_points": [
+        {
+          "lat": 22.933481,
+          "lng": 72.556417
+        },
+        {
+          "lat": 22.933481,
+          "lng": 72.5754
+        },
+        {
+          "lat": 22.97043,
+          "lng": 72.5754
+        },
+        {
+          "lat": 22.97043,
+          "lng": 72.556417
+        }
+      ],
+      "point_ids": [
+        "119_0",
+        "207_0",
+        "254_0",
+        "277_0"
+      ]
+    },
+    {
+      "zone_id": 0,
+      "zone_name": "North Ahmedabad Industrial Zone",
+      "center_lat": 23.106166,
+      "center_lng": 72.494043,
+      "point_count": 6,
+      "avg_lst_celsius": 35.43,
+      "max_lst_celsius": 35.59,
+      "min_lst_celsius": 35.31,
+      "severity": "Medium",
+      "boundary_points": [
+        {
+          "lat": 23.095178,
+          "lng": 72.484552
+        },
+        {
+          "lat": 23.095178,
+          "lng": 72.503535
+        },
+        {
+          "lat": 23.123144,
+          "lng": 72.503535
+        },
+        {
+          "lat": 23.123144,
+          "lng": 72.484552
+        }
+      ],
+      "point_ids": [
+        "15_0",
+        "79_0",
+        "90_0",
+        "201_0",
+        "224_0",
+        "332_0"
+      ]
+    },
+    {
+      "zone_id": 1,
+      "zone_name": "East Ahmedabad Commercial Zone",
+      "center_lat": 23.017083,
+      "center_lng": 72.631037,
+      "point_count": 4,
+      "avg_lst_celsius": 35.07,
+      "max_lst_celsius": 35.16,
+      "min_lst_celsius": 35.04,
+      "severity": "Medium",
+      "boundary_points": [
+        {
+          "lat": 23.005346,
+          "lng": 72.619299
+        },
+        {
+          "lat": 23.005346,
+          "lng": 72.638282
+        },
+        {
+          "lat": 23.024329,
+          "lng": 72.638282
+        },
+        {
+          "lat": 23.024329,
+          "lng": 72.619299
+        }
+      ],
+      "point_ids": [
+        "47_0",
+        "198_0",
+        "240_0",
+        "256_0"
+      ]
+    },
+    {
+      "zone_id": 2,
+      "zone_name": "North Ahmedabad Commercial Zone",
+      "center_lat": 23.097183,
+      "center_lng": 72.678198,
+      "point_count": 3,
+      "avg_lst_celsius": 35.18,
+      "max_lst_celsius": 35.29,
+      "min_lst_celsius": 34.97,
+      "severity": "Medium",
+      "boundary_points": [
+        {
+          "lat": 23.086194,
+          "lng": 72.673198
+        },
+        {
+          "lat": 23.086194,
+          "lng": 72.683198
+        },
+        {
+          "lat": 23.105178,
+          "lng": 72.683198
+        },
+        {
+          "lat": 23.105178,
+          "lng": 72.673198
+        }
+      ],
+      "point_ids": [
+        "111_0",
+        "142_0",
+        "372_0"
+      ]
+    }
+  ]
+}

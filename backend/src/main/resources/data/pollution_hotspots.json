@@ -1,0 +1,307 @@
+{
+  "total_clusters": 7,
+  "hotspots": [
+    {
+      "zone_id": 6,
+      "zone_name": "Naroda Industrial Cluster",
+      "center_lat": 23.091194,
+      "center_lng": 72.669215,
+      "point_count": 4,
+      "avg_risk_score": 66.6,
+      "max_risk_score": 73.5,
+      "severity": "High",
+      "recommended_action": "Monthly monitoring required",
+      "responsible_dept": "Environmental Monitoring Cell",
+      "boundary_points": [
+        {
+          "lat": 23.068228,
+          "lng": 72.655232
+        },
+        {
+          "lat": 23.068228,
+          "lng": 72.683198
+        },
+        {
+          "lat": 23.105178,
+          "lng": 72.683198
+        },
+        {
+          "lat": 23.105178,
+          "lng": 72.655232
+        }
+      ],
+      "point_ids": [
+        "136_0",
+        "142_0",
+        "326_0",
+        "372_0"
+      ]
+    },
+    {
+      "zone_id": 0,
+      "zone_name": "Narol Industrial Cluster",
+      "center_lat": 23.027006,
+      "center_lng": 72.592776,
+      "point_count": 55,
+      "avg_risk_score": 62.8,
+      "max_risk_score": 84.5,
+      "severity": "High",
+      "recommended_action": "Monthly monitoring required",
+      "responsible_dept": "Environmental Monitoring Cell",
+      "boundary_points": [
+        {
+          "lat": 22.933481,
+          "lng": 72.529468
+        },
+        {
+          "lat": 22.933481,
+          "lng": 72.656249
+        },
+        {
+          "lat": 23.123144,
+          "lng": 72.656249
+        },
+        {
+          "lat": 23.123144,
+          "lng": 72.529468
+        }
+      ],
+      "point_ids": [
+        "1_0",
+        "6_0",
+        "7_0",
+        "9_0",
+        "10_0",
+        "11_0",
+        "16_0",
+        "47_0",
+        "51_0",
+        "54_0",
+        "59_0",
+        "74_0",
+        "93_0",
+        "97_0",
+        "101_0",
+        "103_0",
+        "119_0",
+        "134_0",
+        "135_0",
+        "138_0",
+        "153_0",
+        "163_0",
+        "168_0",
+        "173_0",
+        "174_0",
+        "175_0",
+        "185_0",
+        "187_0",
+        "188_0",
+        "198_0",
+        "207_0",
+        "211_0",
+        "235_0",
+        "240_0",
+        "250_0",
+        "254_0",
+        "256_0",
+        "277_0",
+        "280_0",
+        "281_0",
+        "284_0",
+        "292_0",
+        "298_0",
+        "305_0",
+        "310_0",
+        "314_0",
+        "323_0",
+        "341_0",
+        "346_0",
+        "370_0",
+        "371_0",
+        "377_0",
+        "379_0",
+        "394_0",
+        "399_0"
+      ]
+    },
+    {
+      "zone_id": 3,
+      "zone_name": "Odhav Commercial Zone",
+      "center_lat": 23.028312,
+      "center_lng": 72.675952,
+      "point_count": 4,
+      "avg_risk_score": 62.2,
+      "max_risk_score": 63.5,
+      "severity": "High",
+      "recommended_action": "Monthly monitoring required",
+      "responsible_dept": "Environmental Monitoring Cell",
+      "boundary_points": [
+        {
+          "lat": 23.014329,
+          "lng": 72.664215
+        },
+        {
+          "lat": 23.014329,
+          "lng": 72.692181
+        },
+        {
+          "lat": 23.042295,
+          "lng": 72.692181
+        },
+        {
+          "lat": 23.042295,
+          "lng": 72.664215
+        }
+      ],
+      "point_ids": [
+        "68_0",
+        "99_0",
+        "160_0",
+        "345_0"
+      ]
+    },
+    {
+      "zone_id": 5,
+      "zone_name": "Chandkheda Warehouse District",
+      "center_lat": 23.109161,
+      "center_lng": 72.491798,
+      "point_count": 4,
+      "avg_risk_score": 61.4,
+      "max_risk_score": 68.2,
+      "severity": "High",
+      "recommended_action": "Monthly monitoring required",
+      "responsible_dept": "Environmental Monitoring Cell",
+      "boundary_points": [
+        {
+          "lat": 23.095178,
+          "lng": 72.484552
+        },
+        {
+          "lat": 23.095178,
+          "lng": 72.503535
+        },
+        {
+          "lat": 23.123144,
+          "lng": 72.503535
+        },
+        {
+          "lat": 23.123144,
+          "lng": 72.484552
+        }
+      ],
+      "point_ids": [
+        "79_0",
+        "90_0",
+        "201_0",
+        "332_0"
+      ]
+    },
+    {
+      "zone_id": 4,
+      "zone_name": "Chandkheda Mixed Industrial",
+      "center_lat": 23.185517,
+      "center_lng": 72.572646,
+      "point_count": 4,
+      "avg_risk_score": 60.3,
+      "max_risk_score": 64.7,
+      "severity": "High",
+      "recommended_action": "Monthly monitoring required",
+      "responsible_dept": "Environmental Monitoring Cell",
+      "boundary_points": [
+        {
+          "lat": 23.176026,
+          "lng": 72.556417
+        },
+        {
+          "lat": 23.176026,
+          "lng": 72.593367
+        },
+        {
+          "lat": 23.195009,
+          "lng": 72.593367
+        },
+        {
+          "lat": 23.195009,
+          "lng": 72.556417
+        }
+      ],
+      "point_ids": [
+        "77_0",
+        "270_0",
+        "279_0",
+        "351_0"
+      ]
+    },
+    {
+      "zone_id": 2,
+      "zone_name": "Narol Manufacturing Area",
+      "center_lat": 22.99238,
+      "center_lng": 72.518747,
+      "point_count": 4,
+      "avg_risk_score": 59.4,
+      "max_risk_score": 63.9,
+      "severity": "Medium",
+      "recommended_action": "Quarterly assessment recommended",
+      "responsible_dept": "Municipal Corporation",
+      "boundary_points": [
+        {
+          "lat": 22.978397,
+          "lng": 72.502518
+        },
+        {
+          "lat": 22.978397,
+          "lng": 72.530484
+        },
+        {
+          "lat": 23.006363,
+          "lng": 72.530484
+        },
+        {
+          "lat": 23.006363,
+          "lng": 72.502518
+        }
+      ],
+      "point_ids": [
+        "58_0",
+        "62_0",
+        "76_0",
+        "212_0"
+      ]
+    },
+    {
+      "zone_id": 1,
+      "zone_name": "Naroda Chemical Zone",
+      "center_lat": 23.115149,
+      "center_lng": 72.654243,
+      "point_count": 3,
+      "avg_risk_score": 56.7,
+      "max_risk_score": 58.1,
+      "severity": "Medium",
+      "recommended_action": "Quarterly assessment recommended",
+      "responsible_dept": "Municipal Corporation",
+      "boundary_points": [
+        {
+          "lat": 23.104161,
+          "lng": 72.637265
+        },
+        {
+          "lat": 23.104161,
+          "lng": 72.665232
+        },
+        {
+          "lat": 23.123144,
+          "lng": 72.665232
+        },
+        {
+          "lat": 23.123144,
+          "lng": 72.637265
+        }
+      ],
+      "point_ids": [
+        "20_0",
+        "91_0",
+        "294_0"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: aetrix-backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/aetrix_db
+    username: ${POSTGRES_USER:aetrix_user}
+    password: ${POSTGRES_PASSWORD:aetrix_pass}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 600000
+      pool-name: AetrixHikariPool
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=200,expireAfterWrite=60m
+
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+groq:
+  api:
+    url: https://api.groq.com/openai/v1/chat/completions
+    key: ${GROQ_API_KEY}
+    model: llama-3.3-70b-versatile
+    max-tokens: 500
+    temperature: 0.3
+    timeout-seconds: 30
+
+data:
+  output-path: classpath:data/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.aetrix: DEBUG
+    org.hibernate.SQL: WARN
+    com.zaxxer.hikari: INFO

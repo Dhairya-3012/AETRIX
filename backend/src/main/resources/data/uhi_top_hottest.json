@@ -1,0 +1,127 @@
+{
+  "city": "Ahmedabad",
+  "city_mean_lst_celsius": 33.95,
+  "total_ranked": 10,
+  "ranking": [
+    {
+      "rank": 1,
+      "id": "138_0",
+      "lat": 22.974413,
+      "lng": 72.588367,
+      "lst_celsius": 36.65,
+      "lst_raw": 15490.07,
+      "deviation_from_mean": "+2.70\u00b0C",
+      "alert_level": "Critical",
+      "ndvi": 0.0818,
+      "soil_moisture": 0.1474
+    },
+    {
+      "rank": 2,
+      "id": "207_0",
+      "lat": 22.96543,
+      "lng": 72.561417,
+      "lst_celsius": 36.47,
+      "lst_raw": 15480.86,
+      "deviation_from_mean": "+2.51\u00b0C",
+      "alert_level": "Critical",
+      "ndvi": 0.1673,
+      "soil_moisture": 0.1467
+    },
+    {
+      "rank": 3,
+      "id": "346_0",
+      "lat": 22.974413,
+      "lng": 72.59735,
+      "lst_celsius": 36.38,
+      "lst_raw": 15476.62,
+      "deviation_from_mean": "+2.43\u00b0C",
+      "alert_level": "High",
+      "ndvi": 0.0759,
+      "soil_moisture": 0.1474
+    },
+    {
+      "rank": 4,
+      "id": "99_0",
+      "lat": 23.019329,
+      "lng": 72.687181,
+      "lst_celsius": 35.79,
+      "lst_raw": 15446.86,
+      "deviation_from_mean": "+1.83\u00b0C",
+      "alert_level": "High",
+      "ndvi": 0.1773,
+      "soil_moisture": 0.1484
+    },
+    {
+      "rank": 5,
+      "id": "90_0",
+      "lat": 23.118144,
+      "lng": 72.498535,
+      "lst_celsius": 35.59,
+      "lst_raw": 15437.04,
+      "deviation_from_mean": "+1.64\u00b0C",
+      "alert_level": "High",
+      "ndvi": 0.1283,
+      "soil_moisture": 0.1478
+    },
+    {
+      "rank": 6,
+      "id": "79_0",
+      "lat": 23.100178,
+      "lng": 72.489552,
+      "lst_celsius": 35.46,
+      "lst_raw": 15430.72,
+      "deviation_from_mean": "+1.51\u00b0C",
+      "alert_level": "High",
+      "ndvi": 0.1862,
+      "soil_moisture": 0.1478
+    },
+    {
+      "rank": 7,
+      "id": "201_0",
+      "lat": 23.100178,
+      "lng": 72.489552,
+      "lst_celsius": 35.46,
+      "lst_raw": 15430.72,
+      "deviation_from_mean": "+1.51\u00b0C",
+      "alert_level": "High",
+      "ndvi": 0.1862,
+      "soil_moisture": 0.1478
+    },
+    {
+      "rank": 8,
+      "id": "254_0",
+      "lat": 22.947464,
+      "lng": 72.561417,
+      "lst_celsius": 35.43,
+      "lst_raw": 15429.07,
+      "deviation_from_mean": "+1.48\u00b0C",
+      "alert_level": "Medium",
+      "ndvi": 0.2509,
+      "soil_moisture": 0.1467
+    },
+    {
+      "rank": 9,
+      "id": "277_0",
+      "lat": 22.947464,
+      "lng": 72.561417,
+      "lst_celsius": 35.43,
+      "lst_raw": 15429.07,
+      "deviation_from_mean": "+1.48\u00b0C",
+      "alert_level": "Medium",
+      "ndvi": 0.2509,
+      "soil_moisture": 0.1467
+    },
+    {
+      "rank": 10,
+      "id": "15_0",
+      "lat": 23.100178,
+      "lng": 72.498535,
+      "lst_celsius": 35.38,
+      "lst_raw": 15426.25,
+      "deviation_from_mean": "+1.42\u00b0C",
+      "alert_level": "Medium",
+      "ndvi": 0.2353,
+      "soil_moisture": 0.1478
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "total_critical_alerts": 12,
+  "threshold_used": 0.0815,
+  "city_mean_ndvi": 0.2236,
+  "z_score_threshold": -2.0,
+  "alerts": [
+    {
+      "id": "280_0",
+      "lat": 23.019329,
+      "lng": 72.588367,
+      "NDVI_Sentinel": 0.0506,
+      "z_score": -2.44,
+      "severity": "Medium",
+      "message": "NDVI 2.4 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "11_0",
+      "lat": 23.028312,
+      "lng": 72.588367,
+      "NDVI_Sentinel": 0.0595,
+      "z_score": -2.31,
+      "severity": "Medium",
+      "message": "NDVI 2.3 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "175_0",
+      "lat": 23.001363,
+      "lng": 72.651249,
+      "NDVI_Sentinel": 0.0686,
+      "z_score": -2.18,
+      "severity": "Medium",
+      "message": "NDVI 2.2 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "10_0",
+      "lat": 23.001363,
+      "lng": 72.642265,
+      "NDVI_Sentinel": 0.069,
+      "z_score": -2.18,
+      "severity": "Medium",
+      "message": "NDVI 2.2 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "235_0",
+      "lat": 23.001363,
+      "lng": 72.642265,
+      "NDVI_Sentinel": 0.069,
+      "z_score": -2.18,
+      "severity": "Medium",
+      "message": "NDVI 2.2 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "51_0",
+      "lat": 23.073228,
+      "lng": 72.552434,
+      "NDVI_Sentinel": 0.0723,
+      "z_score": -2.13,
+      "severity": "Medium",
+      "message": "NDVI 2.1 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "346_0",
+      "lat": 22.974413,
+      "lng": 72.59735,
+      "NDVI_Sentinel": 0.0759,
+      "z_score": -2.08,
+      "severity": "Medium",
+      "message": "NDVI 2.1 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "198_0",
+      "lat": 23.019329,
+      "lng": 72.633282,
+      "NDVI_Sentinel": 0.078,
+      "z_score": -2.05,
+      "severity": "Medium",
+      "message": "NDVI 2.1 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "240_0",
+      "lat": 23.019329,
+      "lng": 72.633282,
+      "NDVI_Sentinel": 0.078,
+      "z_score": -2.05,
+      "severity": "Medium",
+      "message": "NDVI 2.1 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "256_0",
+      "lat": 23.019329,
+      "lng": 72.633282,
+      "NDVI_Sentinel": 0.078,
+      "z_score": -2.05,
+      "severity": "Medium",
+      "message": "NDVI 2.1 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "298_0",
+      "lat": 23.046279,
+      "lng": 72.642265,
+      "NDVI_Sentinel": 0.079,
+      "z_score": -2.04,
+      "severity": "Medium",
+      "message": "NDVI 2.0 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "377_0",
+      "lat": 22.99238,
+      "lng": 72.633282,
+      "NDVI_Sentinel": 0.0809,
+      "z_score": -2.01,
+      "severity": "Medium",
+      "message": "NDVI 2.0 std below city mean \u2014 urgent intervention needed"
+    }
+  ]
+}
