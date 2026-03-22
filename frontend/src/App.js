@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from './context/AuthContext';
+import { CityProvider } from './context/CityContext';
 import Sidebar from './components/Sidebar';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
@@ -40,12 +41,14 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <Sidebar currentPage={currentPage} onNavigate={setCurrentPage} />
-      <main className="main-content">
-        {renderPage()}
-      </main>
-    </div>
+    <CityProvider>
+      <div className="app-container">
+        <Sidebar currentPage={currentPage} onNavigate={setCurrentPage} />
+        <main className="main-content">
+          {renderPage()}
+        </main>
+      </div>
+    </CityProvider>
   );
 }
 

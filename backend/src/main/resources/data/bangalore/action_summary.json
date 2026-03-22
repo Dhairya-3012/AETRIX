@@ -1,0 +1,11 @@
+{
+  "city": "Bangalore",
+  "last_generated": "2026-03-22T06:56:41.008598",
+  "total_actions": 3,
+  "high_priority": 1,
+  "medium_priority": 2,
+  "low_priority": 0,
+  "top_action": "Soil moisture recharge programme in Low moisture zones",
+  "satellite_findings": "7 heat anomalies, 3 critical vegetation stress points, 3 pollution clusters detected",
+  "state": "Karnataka"
+}

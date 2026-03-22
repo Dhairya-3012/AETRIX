@@ -1,0 +1,76 @@
+{
+  "city": "Delhi",
+  "total_hotspot_zones": 2,
+  "hotspots": [
+    {
+      "zone_id": 1,
+      "zone_name": "North Ahmedabad Manufacturing Zone",
+      "center_lat": 28.80573,
+      "center_lng": 77.139566,
+      "point_count": 4,
+      "avg_lst_celsius": 19.9,
+      "max_lst_celsius": 20.07,
+      "min_lst_celsius": 19.69,
+      "severity": "Low",
+      "boundary_points": [
+        {
+          "lat": 28.782744,
+          "lng": 77.123264
+        },
+        {
+          "lat": 28.782744,
+          "lng": 77.174868
+        },
+        {
+          "lat": 28.819724,
+          "lng": 77.174868
+        },
+        {
+          "lat": 28.819724,
+          "lng": 77.123264
+        }
+      ],
+      "point_ids": [
+        "2023_12_19_37_0",
+        "2023_12_19_71_0",
+        "2023_12_19_78_0",
+        "2023_12_19_128_0"
+      ]
+    },
+    {
+      "zone_id": 0,
+      "zone_name": "North Ahmedabad Industrial Zone",
+      "center_lat": 28.751771,
+      "center_lng": 77.105658,
+      "point_count": 3,
+      "avg_lst_celsius": 19.56,
+      "max_lst_celsius": 19.77,
+      "min_lst_celsius": 19.41,
+      "severity": "Low",
+      "boundary_points": [
+        {
+          "lat": 28.737778,
+          "lng": 77.076723
+        },
+        {
+          "lat": 28.737778,
+          "lng": 77.124138
+        },
+        {
+          "lat": 28.765764,
+          "lng": 77.124138
+        },
+        {
+          "lat": 28.765764,
+          "lng": 77.076723
+        }
+      ],
+      "point_ids": [
+        "2023_12_19_31_0",
+        "2023_12_19_46_0",
+        "2023_12_19_51_0"
+      ]
+    }
+  ],
+  "state": "Delhi"
+}

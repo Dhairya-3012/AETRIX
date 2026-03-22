@@ -467,9 +467,15 @@ class PollutionHotspotModel:
         label_encoder = LabelEncoder()
         y_encoded = label_encoder.fit_transform(y)
 
+        # Check if stratification is possible (each class needs at least 2 samples)
+        from collections import Counter
+        class_counts = Counter(y_encoded)
+        can_stratify = all(count >= 2 for count in class_counts.values())
+
         # Split
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y_encoded, test_size=test_size, random_state=42, stratify=y_encoded
+            X, y_encoded, test_size=test_size, random_state=42,
+            stratify=y_encoded if can_stratify else None
         )
 
         # Scale

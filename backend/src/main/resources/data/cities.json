@@ -1,0 +1,9 @@
+{
+  "cities": ["Ahmedabad", "Bangalore", "Delhi", "Mumbai"],
+  "city_info": {
+    "Ahmedabad": {"lat": 23.022, "lng": 72.571, "state": "Gujarat"},
+    "Bangalore": {"lat": 12.972, "lng": 77.594, "state": "Karnataka"},
+    "Delhi": {"lat": 28.644, "lng": 77.216, "state": "Delhi"},
+    "Mumbai": {"lat": 19.076, "lng": 72.877, "state": "Maharashtra"}
+  }
+}

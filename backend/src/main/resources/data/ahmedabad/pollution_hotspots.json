@@ -1,0 +1,42 @@
+{
+  "total_clusters": 1,
+  "hotspots": [
+    {
+      "zone_id": 0,
+      "zone_name": "Narol Industrial Cluster",
+      "center_lat": 23.005112,
+      "center_lng": 72.590136,
+      "point_count": 3,
+      "avg_risk_score": 57.2,
+      "max_risk_score": 60.2,
+      "severity": "Medium",
+      "recommended_action": "Quarterly assessment recommended",
+      "responsible_dept": "Municipal Corporation",
+      "boundary_points": [
+        {
+          "lat": 22.973133,
+          "lng": 72.581783
+        },
+        {
+          "lat": 22.973133,
+          "lng": 72.596911
+        },
+        {
+          "lat": 23.028099,
+          "lng": 72.596911
+        },
+        {
+          "lat": 23.028099,
+          "lng": 72.581783
+        }
+      ],
+      "point_ids": [
+        "2023_12_27_9_0",
+        "2023_12_27_11_0",
+        "2023_12_27_138_0"
+      ]
+    }
+  ],
+  "city": "Ahmedabad",
+  "state": "Gujarat"
+}

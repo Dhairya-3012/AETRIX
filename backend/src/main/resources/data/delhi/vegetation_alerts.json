@@ -1,0 +1,55 @@
+{
+  "total_critical_alerts": 5,
+  "threshold_used": 0.0764,
+  "city_mean_ndvi": 0.2096,
+  "z_score_threshold": -2.0,
+  "alerts": [
+    {
+      "id": "2023_12_19_52_0",
+      "lat": 28.688819,
+      "lng": 77.045582,
+      "NDVI_Sentinel": 0.0413,
+      "z_score": -2.53,
+      "severity": "High",
+      "message": "NDVI 2.5 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "2023_12_19_64_0",
+      "lat": 28.724791,
+      "lng": 77.266926,
+      "NDVI_Sentinel": 0.0548,
+      "z_score": -2.32,
+      "severity": "Medium",
+      "message": "NDVI 2.3 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "2023_12_19_134_0",
+      "lat": 28.742778,
+      "lng": 77.146885,
+      "NDVI_Sentinel": 0.0707,
+      "z_score": -2.08,
+      "severity": "Medium",
+      "message": "NDVI 2.1 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "2023_12_19_135_0",
+      "lat": 28.742778,
+      "lng": 77.146885,
+      "NDVI_Sentinel": 0.0707,
+      "z_score": -2.08,
+      "severity": "Medium",
+      "message": "NDVI 2.1 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "2023_12_19_60_0",
+      "lat": 28.697812,
+      "lng": 77.103464,
+      "NDVI_Sentinel": 0.0748,
+      "z_score": -2.02,
+      "severity": "Medium",
+      "message": "NDVI 2.0 std below city mean \u2014 urgent intervention needed"
+    }
+  ],
+  "city": "Delhi",
+  "state": "Delhi"
+}

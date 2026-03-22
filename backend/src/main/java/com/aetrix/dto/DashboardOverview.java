@@ -16,6 +16,8 @@ public class DashboardOverview {
     private String city;
     private String state;
     private String country;
+    private Double lat;
+    private Double lng;
 
     // UHI Summary
     private Double cityMeanLst;

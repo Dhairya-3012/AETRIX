@@ -1,0 +1,44 @@
+{
+  "city": "Mumbai",
+  "total_hotspot_zones": 1,
+  "hotspots": [
+    {
+      "zone_id": 0,
+      "zone_name": "Central Ahmedabad Business District Zone",
+      "center_lat": 19.084075,
+      "center_lng": 72.886853,
+      "point_count": 6,
+      "avg_lst_celsius": 33.65,
+      "max_lst_celsius": 34.33,
+      "min_lst_celsius": 32.91,
+      "severity": "Medium",
+      "boundary_points": [
+        {
+          "lat": 19.061088,
+          "lng": 72.858848
+        },
+        {
+          "lat": 19.061088,
+          "lng": 72.933103
+        },
+        {
+          "lat": 19.107061,
+          "lng": 72.933103
+        },
+        {
+          "lat": 19.107061,
+          "lng": 72.858848
+        }
+      ],
+      "point_ids": [
+        "2023_12_27_11_0",
+        "2023_12_27_47_0",
+        "2023_12_27_63_0",
+        "2023_12_27_100_0",
+        "2023_12_27_101_0",
+        "2023_12_27_123_0"
+      ]
+    }
+  ],
+  "state": "Maharashtra"
+}

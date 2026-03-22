@@ -20,43 +20,49 @@ public class VegetationController {
 
     @GetMapping("/summary")
     @Operation(summary = "Get vegetation summary statistics")
-    public ResponseEntity<ApiResponse<VegetationSummary>> getSummary() {
-        VegetationSummary summary = vegetationService.getSummary();
+    public ResponseEntity<ApiResponse<VegetationSummary>> getSummary(
+            @RequestParam(required = false) String city) {
+        VegetationSummary summary = vegetationService.getSummary(city);
         return ResponseEntity.ok(ApiResponse.success(summary));
     }
 
     @GetMapping("/map")
     @Operation(summary = "Get all vegetation map points")
-    public ResponseEntity<ApiResponse<List<VegetationPoint>>> getMap() {
-        List<VegetationPoint> map = vegetationService.getMap();
+    public ResponseEntity<ApiResponse<List<VegetationPoint>>> getMap(
+            @RequestParam(required = false) String city) {
+        List<VegetationPoint> map = vegetationService.getMap(city);
         return ResponseEntity.ok(ApiResponse.success(map));
     }
 
     @GetMapping("/alerts")
     @Operation(summary = "Get vegetation stress alerts")
-    public ResponseEntity<ApiResponse<List<VegetationAlert>>> getAlerts() {
-        List<VegetationAlert> alerts = vegetationService.getAlerts();
+    public ResponseEntity<ApiResponse<List<VegetationAlert>>> getAlerts(
+            @RequestParam(required = false) String city) {
+        List<VegetationAlert> alerts = vegetationService.getAlerts(city);
         return ResponseEntity.ok(ApiResponse.success(alerts));
     }
 
     @GetMapping("/plantation")
     @Operation(summary = "Get plantation recommendations")
-    public ResponseEntity<ApiResponse<List<VegetationPoint>>> getPlantation() {
-        List<VegetationPoint> recommendations = vegetationService.getPlantationRecommendations();
+    public ResponseEntity<ApiResponse<List<VegetationPoint>>> getPlantation(
+            @RequestParam(required = false) String city) {
+        List<VegetationPoint> recommendations = vegetationService.getPlantationRecommendations(city);
         return ResponseEntity.ok(ApiResponse.success(recommendations));
     }
 
     @GetMapping("/ai-summary")
     @Operation(summary = "Get AI-generated vegetation summary")
-    public ResponseEntity<ApiResponse<GrokSummaryResponse>> getAiSummary() {
-        GrokSummaryResponse summary = vegetationService.getAiSummary();
+    public ResponseEntity<ApiResponse<GrokSummaryResponse>> getAiSummary(
+            @RequestParam(required = false) String city) {
+        GrokSummaryResponse summary = vegetationService.getAiSummary(city);
         return ResponseEntity.ok(ApiResponse.success(summary));
     }
 
     @PostMapping("/ai-summary/regenerate")
     @Operation(summary = "Regenerate AI vegetation summary")
-    public ResponseEntity<ApiResponse<GrokSummaryResponse>> regenerateAiSummary() {
-        GrokSummaryResponse summary = vegetationService.regenerateAiSummary();
+    public ResponseEntity<ApiResponse<GrokSummaryResponse>> regenerateAiSummary(
+            @RequestParam(required = false) String city) {
+        GrokSummaryResponse summary = vegetationService.regenerateAiSummary(city);
         return ResponseEntity.ok(ApiResponse.success(summary));
     }
 }

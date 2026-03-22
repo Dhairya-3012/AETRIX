@@ -1,0 +1,324 @@
+{
+  "model": "ARIMA(2,1,2)",
+  "parameter": "LST_Day_1km",
+  "historical_points": 11762,
+  "forecast_steps": 30,
+  "historical": [
+    {
+      "step": 0,
+      "value": "14591",
+      "value_celsius": 18.67
+    },
+    {
+      "step": 1,
+      "value": "14606",
+      "value_celsius": 18.97
+    },
+    {
+      "step": 2,
+      "value": "14584",
+      "value_celsius": 18.53
+    },
+    {
+      "step": 3,
+      "value": "14405",
+      "value_celsius": 14.95
+    },
+    {
+      "step": 4,
+      "value": "14620",
+      "value_celsius": 19.25
+    },
+    {
+      "step": 5,
+      "value": "14478",
+      "value_celsius": 16.41
+    },
+    {
+      "step": 6,
+      "value": "14517",
+      "value_celsius": 17.19
+    },
+    {
+      "step": 7,
+      "value": "14635",
+      "value_celsius": 19.55
+    },
+    {
+      "step": 8,
+      "value": "14567",
+      "value_celsius": 18.19
+    },
+    {
+      "step": 9,
+      "value": "14423",
+      "value_celsius": 15.31
+    },
+    {
+      "step": 10,
+      "value": "14606",
+      "value_celsius": 18.97
+    },
+    {
+      "step": 11,
+      "value": "14581",
+      "value_celsius": 18.47
+    },
+    {
+      "step": 12,
+      "value": "14548",
+      "value_celsius": 17.81
+    },
+    {
+      "step": 13,
+      "value": "14453",
+      "value_celsius": 15.91
+    },
+    {
+      "step": 14,
+      "value": "14487",
+      "value_celsius": 16.59
+    },
+    {
+      "step": 15,
+      "value": "14523",
+      "value_celsius": 17.31
+    },
+    {
+      "step": 16,
+      "value": "14508",
+      "value_celsius": 17.01
+    },
+    {
+      "step": 17,
+      "value": "14587",
+      "value_celsius": 18.59
+    },
+    {
+      "step": 18,
+      "value": "14460",
+      "value_celsius": 16.05
+    },
+    {
+      "step": 19,
+      "value": "14559",
+      "value_celsius": 18.03
+    }
+  ],
+  "forecast": [
+    {
+      "step": 88,
+      "predicted_value": 15131.91,
+      "predicted_celsius": 29.49,
+      "lower_bound_celsius": 15.83,
+      "upper_bound_celsius": 43.15
+    },
+    {
+      "step": 89,
+      "predicted_value": 15131.89,
+      "predicted_celsius": 29.49,
+      "lower_bound_celsius": 15.83,
+      "upper_bound_celsius": 43.15
+    },
+    {
+      "step": 90,
+      "predicted_value": 15131.87,
+      "predicted_celsius": 29.49,
+      "lower_bound_celsius": 15.83,
+      "upper_bound_celsius": 43.15
+    },
+    {
+      "step": 91,
+      "predicted_value": 15131.84,
+      "predicted_celsius": 29.49,
+      "lower_bound_celsius": 15.83,
+      "upper_bound_celsius": 43.15
+    },
+    {
+      "step": 92,
+      "predicted_value": 15131.82,
+      "predicted_celsius": 29.49,
+      "lower_bound_celsius": 15.83,
+      "upper_bound_celsius": 43.15
+    },
+    {
+      "step": 93,
+      "predicted_value": 15131.79,
+      "predicted_celsius": 29.49,
+      "lower_bound_celsius": 15.83,
+      "upper_bound_celsius": 43.15
+    },
+    {
+      "step": 94,
+      "predicted_value": 15131.77,
+      "predicted_celsius": 29.49,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.15
+    },
+    {
+      "step": 95,
+      "predicted_value": 15131.75,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.15
+    },
+    {
+      "step": 96,
+      "predicted_value": 15131.72,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 97,
+      "predicted_value": 15131.7,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 98,
+      "predicted_value": 15131.67,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 99,
+      "predicted_value": 15131.65,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 100,
+      "predicted_value": 15131.62,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 101,
+      "predicted_value": 15131.6,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 102,
+      "predicted_value": 15131.58,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 103,
+      "predicted_value": 15131.55,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 104,
+      "predicted_value": 15131.53,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 105,
+      "predicted_value": 15131.5,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 106,
+      "predicted_value": 15131.48,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 107,
+      "predicted_value": 15131.46,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 108,
+      "predicted_value": 15131.43,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 109,
+      "predicted_value": 15131.41,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 110,
+      "predicted_value": 15131.38,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 111,
+      "predicted_value": 15131.36,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 112,
+      "predicted_value": 15131.34,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 113,
+      "predicted_value": 15131.31,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 114,
+      "predicted_value": 15131.29,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.82,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 115,
+      "predicted_value": 15131.26,
+      "predicted_celsius": 29.48,
+      "lower_bound_celsius": 15.81,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 116,
+      "predicted_value": 15131.24,
+      "predicted_celsius": 29.47,
+      "lower_bound_celsius": 15.81,
+      "upper_bound_celsius": 43.14
+    },
+    {
+      "step": 117,
+      "predicted_value": 15131.21,
+      "predicted_celsius": 29.47,
+      "lower_bound_celsius": 15.81,
+      "upper_bound_celsius": 43.13
+    }
+  ],
+  "trend_direction": "Stable",
+  "trend_rate": "-0.1\u00b0C per 100 observations",
+  "city": "Delhi",
+  "state": "Delhi"
+}

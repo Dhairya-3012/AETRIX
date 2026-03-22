@@ -1,0 +1,111 @@
+{
+  "city": "Mumbai",
+  "generated_at": "2026-03-22T06:57:53.843474",
+  "satellite_sources": [
+    "MODIS LST",
+    "Sentinel-2 NDVI",
+    "Landsat NDVI",
+    "SMAP Soil Moisture"
+  ],
+  "total_actions": 4,
+  "summary": {
+    "high_priority": 2,
+    "medium_priority": 2,
+    "low_priority": 0
+  },
+  "actions": [
+    {
+      "action_id": 1,
+      "priority": "High",
+      "priority_score": 100,
+      "title": "PCB inspection of Central Industrial Cluster",
+      "description": "36 locations show simultaneous high temperature, bare land, and dry soil \u2014 environmental signature of active industrial pollution. Immediate on-site inspection required.",
+      "location": {
+        "zone_name": "Central Industrial Cluster",
+        "center_lat": 19.123295,
+        "center_lng": 72.86715,
+        "affected_points": 36
+      },
+      "triggered_by": {
+        "model": "Isolation Forest + Risk Score",
+        "finding": "Risk score 65.1/100 \u2014 extreme environmental stress",
+        "satellite": "MODIS LST + Sentinel-2 NDVI + SMAP"
+      },
+      "responsible_dept": "Pollution Control Board",
+      "deadline": "Within 7 days",
+      "estimated_impact": "Prevent further land degradation in 36 flagged locations",
+      "status": "Pending"
+    },
+    {
+      "action_id": 2,
+      "priority": "High",
+      "priority_score": 83.6,
+      "title": "PCB inspection of Narol Chemical Zone",
+      "description": "2 locations show simultaneous high temperature, bare land, and dry soil \u2014 environmental signature of active industrial pollution. Immediate on-site inspection required.",
+      "location": {
+        "zone_name": "Narol Chemical Zone",
+        "center_lat": 18.95817,
+        "center_lng": 72.814225,
+        "affected_points": 2
+      },
+      "triggered_by": {
+        "model": "Isolation Forest + Risk Score",
+        "finding": "Risk score 63.6/100 \u2014 extreme environmental stress",
+        "satellite": "MODIS LST + Sentinel-2 NDVI + SMAP"
+      },
+      "responsible_dept": "Pollution Control Board",
+      "deadline": "Within 7 days",
+      "estimated_impact": "Prevent further land degradation in 2 flagged locations",
+      "status": "Pending"
+    },
+    {
+      "action_id": 3,
+      "priority": "Medium",
+      "priority_score": 72.0,
+      "title": "Cool roof mandate for top hottest ward locations",
+      "description": "10 locations with LST above 36.5\u00b0C in dense urban areas where tree plantation is not feasible. Cool roof coating mandate recommended for all new constructions.",
+      "location": {
+        "zone_name": "Multiple wards \u2014 see coordinates list",
+        "center_lat": null,
+        "center_lng": null,
+        "affected_points": 10
+      },
+      "triggered_by": {
+        "model": "Isolation Forest + Top Hottest Ranking",
+        "finding": "High LST in dense urban areas",
+        "satellite": "MODIS LST + Landsat Thermal"
+      },
+      "responsible_dept": "Municipal Corporation \u2014 Building Permits",
+      "deadline": "Policy within 90 days",
+      "estimated_impact": "Reduce indoor temperatures and surface heat",
+      "status": "Pending"
+    },
+    {
+      "action_id": 4,
+      "priority": "Medium",
+      "priority_score": 55.2,
+      "title": "Monthly satellite monitoring protocol for vegetation recovery",
+      "description": "83.1% of Ahmedabad shows stressed or barren vegetation. A monthly NDVI monitoring protocol using Sentinel-2 data will track recovery after interventions.",
+      "location": {
+        "zone_name": "City-wide",
+        "center_lat": null,
+        "center_lng": null,
+        "affected_points": 77
+      },
+      "triggered_by": {
+        "model": "RF Classifier Summary",
+        "finding": "83.1% stressed/barren classification",
+        "satellite": "Sentinel-2 NDVI"
+      },
+      "responsible_dept": "Environmental Monitoring Cell",
+      "deadline": "Ongoing \u2014 start within 30 days",
+      "estimated_impact": "Track intervention effectiveness over time",
+      "status": "Pending"
+    }
+  ],
+  "state": "Maharashtra",
+  "coordinates": {
+    "lat": 19.076,
+    "lng": 72.877
+  }
+}

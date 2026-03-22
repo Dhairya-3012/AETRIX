@@ -20,43 +20,49 @@ public class ForecastController {
 
     @GetMapping("/trend")
     @Operation(summary = "Get forecast trend with historical and predicted data")
-    public ResponseEntity<ApiResponse<ForecastTrendDto>> getTrend() {
-        ForecastTrendDto trend = forecastService.getTrend();
+    public ResponseEntity<ApiResponse<ForecastTrendDto>> getTrend(
+            @RequestParam(required = false) String city) {
+        ForecastTrendDto trend = forecastService.getTrend(city);
         return ResponseEntity.ok(ApiResponse.success(trend));
     }
 
     @GetMapping("/breach")
     @Operation(summary = "Get threshold breach analysis")
-    public ResponseEntity<ApiResponse<ForecastBreachDto>> getBreach() {
-        ForecastBreachDto breach = forecastService.getBreach();
+    public ResponseEntity<ApiResponse<ForecastBreachDto>> getBreach(
+            @RequestParam(required = false) String city) {
+        ForecastBreachDto breach = forecastService.getBreach(city);
         return ResponseEntity.ok(ApiResponse.success(breach));
     }
 
     @GetMapping("/historical")
     @Operation(summary = "Get historical temperature data")
-    public ResponseEntity<ApiResponse<List<ForecastStep>>> getHistorical() {
-        List<ForecastStep> historical = forecastService.getHistorical();
+    public ResponseEntity<ApiResponse<List<ForecastStep>>> getHistorical(
+            @RequestParam(required = false) String city) {
+        List<ForecastStep> historical = forecastService.getHistorical(city);
         return ResponseEntity.ok(ApiResponse.success(historical));
     }
 
     @GetMapping("/predicted")
     @Operation(summary = "Get predicted temperature data")
-    public ResponseEntity<ApiResponse<List<ForecastStep>>> getPredicted() {
-        List<ForecastStep> predicted = forecastService.getPredicted();
+    public ResponseEntity<ApiResponse<List<ForecastStep>>> getPredicted(
+            @RequestParam(required = false) String city) {
+        List<ForecastStep> predicted = forecastService.getPredicted(city);
         return ResponseEntity.ok(ApiResponse.success(predicted));
     }
 
     @GetMapping("/ai-summary")
     @Operation(summary = "Get AI-generated forecast summary")
-    public ResponseEntity<ApiResponse<GrokSummaryResponse>> getAiSummary() {
-        GrokSummaryResponse summary = forecastService.getAiSummary();
+    public ResponseEntity<ApiResponse<GrokSummaryResponse>> getAiSummary(
+            @RequestParam(required = false) String city) {
+        GrokSummaryResponse summary = forecastService.getAiSummary(city);
         return ResponseEntity.ok(ApiResponse.success(summary));
     }
 
     @PostMapping("/ai-summary/regenerate")
     @Operation(summary = "Regenerate AI forecast summary")
-    public ResponseEntity<ApiResponse<GrokSummaryResponse>> regenerateAiSummary() {
-        GrokSummaryResponse summary = forecastService.regenerateAiSummary();
+    public ResponseEntity<ApiResponse<GrokSummaryResponse>> regenerateAiSummary(
+            @RequestParam(required = false) String city) {
+        GrokSummaryResponse summary = forecastService.regenerateAiSummary(city);
         return ResponseEntity.ok(ApiResponse.success(summary));
     }
 }

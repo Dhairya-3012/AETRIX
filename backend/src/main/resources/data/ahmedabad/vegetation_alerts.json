@@ -1,0 +1,46 @@
+{
+  "total_critical_alerts": 4,
+  "threshold_used": 0.0813,
+  "city_mean_ndvi": 0.2236,
+  "z_score_threshold": -2.0,
+  "alerts": [
+    {
+      "id": "2023_12_27_138_0",
+      "lat": 22.978133,
+      "lng": 72.591911,
+      "NDVI_Sentinel": 0.0628,
+      "z_score": -2.26,
+      "severity": "Medium",
+      "message": "NDVI 2.3 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "2023_12_27_10_0",
+      "lat": 23.005112,
+      "lng": 72.645497,
+      "NDVI_Sentinel": 0.0643,
+      "z_score": -2.24,
+      "severity": "Medium",
+      "message": "NDVI 2.2 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "2023_12_27_11_0",
+      "lat": 23.023099,
+      "lng": 72.586783,
+      "NDVI_Sentinel": 0.0688,
+      "z_score": -2.18,
+      "severity": "Medium",
+      "message": "NDVI 2.2 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "2023_12_27_9_0",
+      "lat": 23.014106,
+      "lng": 72.591714,
+      "NDVI_Sentinel": 0.079,
+      "z_score": -2.03,
+      "severity": "Medium",
+      "message": "NDVI 2.0 std below city mean \u2014 urgent intervention needed"
+    }
+  ],
+  "city": "Ahmedabad",
+  "state": "Gujarat"
+}

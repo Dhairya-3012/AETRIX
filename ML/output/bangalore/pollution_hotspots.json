@@ -1,0 +1,118 @@
+{
+  "total_clusters": 3,
+  "hotspots": [
+    {
+      "zone_id": 2,
+      "zone_name": "Sanand Manufacturing Area",
+      "center_lat": 12.901246,
+      "center_lng": 77.470609,
+      "point_count": 2,
+      "avg_risk_score": 59.8,
+      "max_risk_score": 62.8,
+      "severity": "Medium",
+      "recommended_action": "Quarterly assessment recommended",
+      "responsible_dept": "Municipal Corporation",
+      "boundary_points": [
+        {
+          "lat": 12.891749,
+          "lng": 77.450377
+        },
+        {
+          "lat": 12.891749,
+          "lng": 77.490841
+        },
+        {
+          "lat": 12.910742,
+          "lng": 77.490841
+        },
+        {
+          "lat": 12.910742,
+          "lng": 77.450377
+        }
+      ],
+      "point_ids": [
+        "2023_12_27_89_0",
+        "2023_12_27_129_0"
+      ]
+    },
+    {
+      "zone_id": 1,
+      "zone_name": "Vatva Chemical Zone",
+      "center_lat": 12.896749,
+      "center_lng": 77.726005,
+      "point_count": 3,
+      "avg_risk_score": 58.8,
+      "max_risk_score": 59.7,
+      "severity": "Medium",
+      "recommended_action": "Quarterly assessment recommended",
+      "responsible_dept": "Municipal Corporation",
+      "boundary_points": [
+        {
+          "lat": 12.891749,
+          "lng": 77.699477
+        },
+        {
+          "lat": 12.891749,
+          "lng": 77.764833
+        },
+        {
+          "lat": 12.901749,
+          "lng": 77.764833
+        },
+        {
+          "lat": 12.901749,
+          "lng": 77.699477
+        }
+      ],
+      "point_ids": [
+        "2023_12_27_36_0",
+        "2023_12_27_117_0",
+        "2023_12_27_125_0"
+      ]
+    },
+    {
+      "zone_id": 0,
+      "zone_name": "Chandkheda Industrial Cluster",
+      "center_lat": 12.94891,
+      "center_lng": 77.58138,
+      "point_count": 10,
+      "avg_risk_score": 56.7,
+      "max_risk_score": 61.1,
+      "severity": "Medium",
+      "recommended_action": "Quarterly assessment recommended",
+      "responsible_dept": "Municipal Corporation",
+      "boundary_points": [
+        {
+          "lat": 12.900742,
+          "lng": 77.54178
+        },
+        {
+          "lat": 12.900742,
+          "lng": 77.638461
+        },
+        {
+          "lat": 13.009667,
+          "lng": 77.638461
+        },
+        {
+          "lat": 13.009667,
+          "lng": 77.54178
+        }
+      ],
+      "point_ids": [
+        "2023_12_27_25_0",
+        "2023_12_27_34_0",
+        "2023_12_27_52_0",
+        "2023_12_27_54_0",
+        "2023_12_27_58_0",
+        "2023_12_27_59_0",
+        "2023_12_27_60_0",
+        "2023_12_27_63_0",
+        "2023_12_27_76_0",
+        "2023_12_27_138_0"
+      ]
+    }
+  ],
+  "city": "Bangalore",
+  "state": "Karnataka"
+}

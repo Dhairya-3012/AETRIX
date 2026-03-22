@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "pollution_points", indexes = {
         @Index(name = "idx_poll_category", columnList = "risk_category"),
-        @Index(name = "idx_poll_outlier", columnList = "is_extreme_outlier")
+        @Index(name = "idx_poll_outlier", columnList = "is_extreme_outlier"),
+        @Index(name = "idx_poll_city", columnList = "city")
 })
 @Data
 @Builder
@@ -23,6 +24,10 @@ public class PollutionPointEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "city", length = 50, nullable = false)
+    @Builder.Default
+    private String city = "Ahmedabad";
 
     @Column(name = "point_id", length = 20)
     private String pointId;

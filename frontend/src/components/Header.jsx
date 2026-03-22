@@ -1,7 +1,9 @@
 import React from 'react';
 import { getTrendColor } from '../utils/colorUtils';
+import { useCity } from '../context/CityContext';
 
 const Header = ({ title, subtitle, city, state, trend, trendDescription }) => {
+  const { selectedCity, setSelectedCity, cities } = useCity();
   const cityTag = city && state ? `${city}, ${state}` : city || 'AHMEDABAD, GJ';
 
   return (
@@ -16,7 +18,18 @@ const Header = ({ title, subtitle, city, state, trend, trendDescription }) => {
       </div>
 
       <div className="header-right">
-        <span className="header-city-tag">{cityTag}</span>
+        <div className="header-city-selector">
+          <label className="header-city-label">City</label>
+          <select
+            value={selectedCity}
+            onChange={(e) => setSelectedCity(e.target.value)}
+            className="header-city-select"
+          >
+            {cities.map(cityName => (
+              <option key={cityName} value={cityName}>{cityName}</option>
+            ))}
+          </select>
+        </div>
         {trend && (
           <span
             className={`header-trend-badge ${trend}`}

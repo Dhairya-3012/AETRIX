@@ -18,11 +18,13 @@ import KpiCard from '../components/KpiCard';
 import AlertStrip from '../components/AlertStrip';
 import AiSummaryCard from '../components/AiSummaryCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useCity } from '../context/CityContext';
 import uhiService from '../services/uhiService';
 import { formatTemperature, formatPercent, formatNumber } from '../utils/formatters';
 import { getSeverityColor } from '../utils/colorUtils';
 
 const UhiPage = () => {
+  const { selectedCity, cityInfo } = useCity();
   const [summary, setSummary] = useState(null);
   const [heatmap, setHeatmap] = useState([]);
   const [hotspots, setHotspots] = useState([]);
@@ -33,9 +35,9 @@ const UhiPage = () => {
       setLoading(true);
       try {
         const [summaryRes, heatmapRes, hotspotsRes] = await Promise.all([
-          uhiService.getSummary(),
-          uhiService.getHeatmap(),
-          uhiService.getHotspots(),
+          uhiService.getSummary(selectedCity),
+          uhiService.getHeatmap(selectedCity),
+          uhiService.getHotspots(selectedCity),
         ]);
 
         if (summaryRes?.success) setSummary(summaryRes.data);
@@ -49,12 +51,12 @@ const UhiPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedCity]);
 
   if (loading) {
     return (
       <div className="page-container">
-        <Header title="Urban Heat Island Analysis" />
+        <Header title="Urban Heat Island Analysis" city={selectedCity} state={cityInfo.state} />
         <LoadingSpinner />
       </div>
     );
@@ -90,8 +92,9 @@ const UhiPage = () => {
     <div className="page-container">
       <Header
         title="Urban Heat Island Analysis"
-        subtitle={`AETRIX — India Environmental Intelligence | ${summary?.city || 'Ahmedabad'}`}
-        city={summary?.city}
+        subtitle={`AETRIX — India Environmental Intelligence | ${selectedCity}`}
+        city={selectedCity}
+        state={cityInfo.state}
       />
 
       {summary?.anomalyCount > 0 && (
@@ -241,8 +244,8 @@ const UhiPage = () => {
         <AiSummaryCard
           title="AI UHI Analysis"
           featureKey="uhi"
-          fetchSummary={uhiService.getAiSummary}
-          regenerateSummary={uhiService.regenerateAiSummary}
+          fetchSummary={() => uhiService.getAiSummary(selectedCity)}
+          regenerateSummary={() => uhiService.regenerateAiSummary(selectedCity)}
         />
       </div>
     </div>

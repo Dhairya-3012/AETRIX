@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class GrokSummaryResponse {
     private String featureKey;
+    private String city;
     private String summaryText;
     private String modelUsed;
     private LocalDateTime generatedAt;

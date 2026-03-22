@@ -1,0 +1,31 @@
+{
+  "threshold_lst_celsius": 35.0,
+  "current_points_above_threshold": 0,
+  "current_pct_above_threshold": 0.0,
+  "breach_scenarios": [
+    {
+      "scenario": "NDVI drops 10%",
+      "points_above_threshold": 0,
+      "pct_above": 0.0
+    },
+    {
+      "scenario": "NDVI drops 20%",
+      "points_above_threshold": 0,
+      "pct_above": 0.0
+    },
+    {
+      "scenario": "Soil moisture drops 5%",
+      "points_above_threshold": 0,
+      "pct_above": 0.0
+    },
+    {
+      "scenario": "Soil moisture drops 10%",
+      "points_above_threshold": 0,
+      "pct_above": 0.0
+    }
+  ],
+  "safe_ndvi_minimum": 0.05,
+  "message": "Ahmedabad must maintain NDVI above 0.05 to keep LST below 35.0\u00b0C in majority of city",
+  "city": "Delhi",
+  "state": "Delhi"
+}

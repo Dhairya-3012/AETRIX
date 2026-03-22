@@ -1,0 +1,128 @@
+{
+  "city": "Mumbai",
+  "city_mean_lst_celsius": 32.61,
+  "total_ranked": 10,
+  "ranking": [
+    {
+      "rank": 1,
+      "id": "2023_12_27_123_0",
+      "lat": 19.084075,
+      "lng": 72.878922,
+      "lst_celsius": 34.33,
+      "lst_raw": 15374,
+      "deviation_from_mean": "+1.72\u00b0C",
+      "alert_level": "High",
+      "ndvi": 0.1268,
+      "soil_moisture": 0.197
+    },
+    {
+      "rank": 2,
+      "id": "2023_12_27_11_0",
+      "lat": 19.084075,
+      "lng": 72.888439,
+      "lst_celsius": 34.07,
+      "lst_raw": 15361,
+      "deviation_from_mean": "+1.46\u00b0C",
+      "alert_level": "Medium",
+      "ndvi": 0.1425,
+      "soil_moisture": 0.197
+    },
+    {
+      "rank": 3,
+      "id": "2023_12_27_101_0",
+      "lat": 19.102061,
+      "lng": 72.896359,
+      "lst_celsius": 33.85,
+      "lst_raw": 15350,
+      "deviation_from_mean": "+1.24\u00b0C",
+      "alert_level": "Medium",
+      "ndvi": 0.088,
+      "soil_moisture": 0.1988
+    },
+    {
+      "rank": 4,
+      "id": "2023_12_27_47_0",
+      "lat": 19.066088,
+      "lng": 72.928103,
+      "lst_celsius": 33.65,
+      "lst_raw": 15340,
+      "deviation_from_mean": "+1.04\u00b0C",
+      "alert_level": "Medium",
+      "ndvi": 0.1144,
+      "soil_moisture": 0.197
+    },
+    {
+      "rank": 5,
+      "id": "2023_12_27_100_0",
+      "lat": 19.093068,
+      "lng": 72.863848,
+      "lst_celsius": 33.09,
+      "lst_raw": 15312,
+      "deviation_from_mean": "+0.48\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.1006,
+      "soil_moisture": 0.197
+    },
+    {
+      "rank": 6,
+      "id": "2023_12_27_7_0",
+      "lat": 19.066088,
+      "lng": 72.918588,
+      "lst_celsius": 33.01,
+      "lst_raw": 15308,
+      "deviation_from_mean": "+0.40\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.1541,
+      "soil_moisture": 0.197
+    },
+    {
+      "rank": 7,
+      "id": "2023_12_27_63_0",
+      "lat": 19.075081,
+      "lng": 72.86545,
+      "lst_celsius": 32.91,
+      "lst_raw": 15303,
+      "deviation_from_mean": "+0.30\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.1527,
+      "soil_moisture": 0.197
+    },
+    {
+      "rank": 8,
+      "id": "2023_12_27_103_0",
+      "lat": 19.138034,
+      "lng": 72.855111,
+      "lst_celsius": 32.61,
+      "lst_raw": 15288,
+      "deviation_from_mean": "+0.00\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.1225,
+      "soil_moisture": 0.1988
+    },
+    {
+      "rank": 9,
+      "id": "2023_12_27_6_0",
+      "lat": 19.048102,
+      "lng": 72.872624,
+      "lst_celsius": 32.51,
+      "lst_raw": 15283,
+      "deviation_from_mean": "-0.10\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.1639,
+      "soil_moisture": 0.197
+    },
+    {
+      "rank": 10,
+      "id": "2023_12_27_26_0",
+      "lat": 19.111054,
+      "lng": 72.900323,
+      "lst_celsius": 32.39,
+      "lst_raw": 15277,
+      "deviation_from_mean": "-0.22\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.1895,
+      "soil_moisture": 0.1988
+    }
+  ],
+  "state": "Maharashtra"
+}

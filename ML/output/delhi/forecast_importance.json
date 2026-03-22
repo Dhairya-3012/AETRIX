@@ -1,0 +1,40 @@
+{
+  "model": "Random Forest Regressor",
+  "target": "LST_Day_1km",
+  "r2_score": -0.0039,
+  "training_points": 11762,
+  "feature_importance": [
+    {
+      "feature": "lng",
+      "importance": 0.3665,
+      "interpretation": "Eastern industrial corridor effect"
+    },
+    {
+      "feature": "NDVI",
+      "importance": 0.185,
+      "interpretation": "MODIS NDVI provides regional vegetation context"
+    },
+    {
+      "feature": "NDVI_Landsat",
+      "importance": 0.161,
+      "interpretation": "Secondary vegetation signal confirms NDVI importance"
+    },
+    {
+      "feature": "NDVI_Sentinel",
+      "importance": 0.1243,
+      "interpretation": "Green cover is the biggest driver of surface temperature"
+    },
+    {
+      "feature": "lat",
+      "importance": 0.0993,
+      "interpretation": "Northern Ahmedabad consistently hotter"
+    },
+    {
+      "feature": "sm_surface",
+      "importance": 0.0639,
+      "interpretation": "Soil dryness amplifies surface heating"
+    }
+  ],
+  "city": "Delhi",
+  "state": "Delhi"
+}

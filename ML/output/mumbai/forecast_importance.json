@@ -1,0 +1,40 @@
+{
+  "model": "Random Forest Regressor",
+  "target": "LST_Day_1km",
+  "r2_score": 0.2184,
+  "training_points": 5354,
+  "feature_importance": [
+    {
+      "feature": "NDVI_Sentinel",
+      "importance": 0.3766,
+      "interpretation": "Green cover is the biggest driver of surface temperature"
+    },
+    {
+      "feature": "lng",
+      "importance": 0.2693,
+      "interpretation": "Eastern industrial corridor effect"
+    },
+    {
+      "feature": "NDVI",
+      "importance": 0.1451,
+      "interpretation": "MODIS NDVI provides regional vegetation context"
+    },
+    {
+      "feature": "sm_surface",
+      "importance": 0.0954,
+      "interpretation": "Soil dryness amplifies surface heating"
+    },
+    {
+      "feature": "NDVI_Landsat",
+      "importance": 0.0694,
+      "interpretation": "Secondary vegetation signal confirms NDVI importance"
+    },
+    {
+      "feature": "lat",
+      "importance": 0.0441,
+      "interpretation": "Northern Ahmedabad consistently hotter"
+    }
+  ],
+  "city": "Mumbai",
+  "state": "Maharashtra"
+}

@@ -1,0 +1,11 @@
+{
+  "city": "Delhi",
+  "last_generated": "2026-03-22T06:56:42.000371",
+  "total_actions": 3,
+  "high_priority": 1,
+  "medium_priority": 2,
+  "low_priority": 0,
+  "top_action": "Soil moisture recharge programme in Low moisture zones",
+  "satellite_findings": "10 heat anomalies, 5 critical vegetation stress points, 2 pollution clusters detected",
+  "state": "Delhi"
+}

@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "uhi_heatmap_points", indexes = {
         @Index(name = "idx_uhi_anomaly", columnList = "is_anomaly"),
-        @Index(name = "idx_uhi_severity", columnList = "severity")
+        @Index(name = "idx_uhi_severity", columnList = "severity"),
+        @Index(name = "idx_uhi_city", columnList = "city")
 })
 @Data
 @Builder
@@ -23,6 +24,10 @@ public class UhiHeatmapPointEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "city", length = 50, nullable = false)
+    @Builder.Default
+    private String city = "Ahmedabad";
 
     @Column(name = "point_id", length = 20)
     private String pointId;

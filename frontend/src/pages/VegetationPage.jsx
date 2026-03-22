@@ -17,11 +17,13 @@ import KpiCard from '../components/KpiCard';
 import AlertStrip from '../components/AlertStrip';
 import AiSummaryCard from '../components/AiSummaryCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useCity } from '../context/CityContext';
 import vegetationService from '../services/vegetationService';
 import { formatNumber, formatPercent } from '../utils/formatters';
 import { getHealthColor } from '../utils/colorUtils';
 
 const VegetationPage = () => {
+  const { selectedCity, cityInfo } = useCity();
   const [summary, setSummary] = useState(null);
   const [alerts, setAlerts] = useState([]);
   const [plantation, setPlantation] = useState([]);
@@ -32,9 +34,9 @@ const VegetationPage = () => {
       setLoading(true);
       try {
         const [summaryRes, alertsRes, plantationRes] = await Promise.all([
-          vegetationService.getSummary(),
-          vegetationService.getAlerts(),
-          vegetationService.getPlantation(),
+          vegetationService.getSummary(selectedCity),
+          vegetationService.getAlerts(selectedCity),
+          vegetationService.getPlantation(selectedCity),
         ]);
 
         if (summaryRes?.success) setSummary(summaryRes.data);
@@ -48,12 +50,12 @@ const VegetationPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedCity]);
 
   if (loading) {
     return (
       <div className="page-container">
-        <Header title="Vegetation Health Analysis" />
+        <Header title="Vegetation Health Analysis" city={selectedCity} state={cityInfo.state} />
         <LoadingSpinner />
       </div>
     );
@@ -80,8 +82,9 @@ const VegetationPage = () => {
     <div className="page-container">
       <Header
         title="Vegetation Health Analysis"
-        subtitle={`AETRIX — India Environmental Intelligence | ${summary?.city || 'Ahmedabad'}`}
-        city={summary?.city}
+        subtitle={`AETRIX — India Environmental Intelligence | ${selectedCity}`}
+        city={selectedCity}
+        state={cityInfo.state}
       />
 
       {alerts.length > 0 && (
@@ -281,8 +284,8 @@ const VegetationPage = () => {
         <AiSummaryCard
           title="AI Vegetation Analysis"
           featureKey="vegetation"
-          fetchSummary={vegetationService.getAiSummary}
-          regenerateSummary={vegetationService.regenerateAiSummary}
+          fetchSummary={() => vegetationService.getAiSummary(selectedCity)}
+          regenerateSummary={() => vegetationService.regenerateAiSummary(selectedCity)}
         />
       </div>
     </div>

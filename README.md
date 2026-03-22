@@ -17,6 +17,22 @@ A comprehensive satellite-based environmental monitoring platform developed for 
 - Identify pollution hotspots and environmental risk zones
 - Forecast environmental trends using ML models
 - Generate actionable recommendations for urban planners
+- **Multi-city support** for analyzing multiple Indian metropolitan areas
+
+---
+
+## Supported Cities
+
+AETRIX currently supports environmental monitoring for **4 major Indian cities**:
+
+| City | State | Coordinates |
+|------|-------|-------------|
+| **Ahmedabad** | Gujarat | 23.022°N, 72.571°E |
+| **Bangalore** | Karnataka | 12.972°N, 77.594°E |
+| **Delhi** | Delhi | 28.644°N, 77.216°E |
+| **Mumbai** | Maharashtra | 19.076°N, 72.877°E |
+
+Users can switch between cities using the city selector in the application header.
 
 ---
 
@@ -28,8 +44,9 @@ A comprehensive satellite-based environmental monitoring platform developed for 
 |   (React.js)     |<--->| (Spring Boot)    |<--->|    (Python)      |
 |                  |     |                  |     |                  |
 | - MapTiler Maps  |     | - REST APIs      |     | - UHI Detection  |
-| - Interactive UI |     | - PostgreSQL     |     | - NDVI Analysis  |
-| - Recharts       |     | - Caffeine Cache |     | - Pollution ML   |
+| - City Selector  |     | - PostgreSQL     |     | - NDVI Analysis  |
+| - Interactive UI |     | - Multi-city DB  |     | - Pollution ML   |
+| - Recharts       |     | - Caffeine Cache |     | - Multi-city     |
 | - Dashboard      |     | - xAI Integration|     | - Forecasting    |
 +------------------+     +------------------+     +------------------+
 ```
@@ -38,31 +55,37 @@ A comprehensive satellite-based environmental monitoring platform developed for 
 
 ## Features
 
-### 1. Urban Heat Island (UHI) Detection
+### 1. Multi-City Environmental Monitoring
+- City selector for switching between Ahmedabad, Bangalore, Delhi, and Mumbai
+- City-specific data isolation in database
+- Per-city ML analysis and predictions
+- Comparative insights across cities
+
+### 2. Urban Heat Island (UHI) Detection
 - Machine Learning models for heat anomaly classification
 - Heatmap visualization with temperature gradients
 - Hotspot zone identification and clustering
-- Top-N hottest location analysis
+- Top-N hottest location analysis per city
 
-### 2. Vegetation Health Monitoring
+### 3. Vegetation Health Monitoring
 - Multi-satellite NDVI fusion (Landsat + Sentinel-2)
 - Vegetation stress classification (Healthy/Stressed/Critical)
 - Alert system for vegetation degradation
 - Priority plantation zone recommendations
 
-### 3. Pollution Hotspot Analysis
+### 4. Pollution Hotspot Analysis
 - Risk zone mapping using clustering algorithms
 - Compliance reporting against environmental standards
 - Industrial vs. residential pollution differentiation
 - Real-time pollution level tracking
 
-### 4. Trend Forecasting
+### 5. Trend Forecasting
 - Time-series prediction for LST trends
 - Feature importance analysis
 - Threshold breach predictions
 - Seasonal pattern recognition
 
-### 5. AI-Powered Action Plans
+### 6. AI-Powered Action Plans
 - Automated prioritization of interventions
 - Zone-specific recommendations
 - Integration with Grok LLM for intelligent summaries
@@ -104,14 +127,13 @@ A comprehensive satellite-based environmental monitoring platform developed for 
 Aetrix/
 ├── .env.example                # Root environment template
 ├── .gitignore                  # Git ignore rules
-├── railway.json                # Railway deployment config
 ├── README.md
 │
 ├── frontend/                   # React.js Frontend
 │   ├── .env.example            # Frontend environment template
 │   ├── src/
 │   │   ├── components/         # UI Components
-│   │   │   ├── Header.jsx
+│   │   │   ├── Header.jsx      # Includes city selector
 │   │   │   ├── Sidebar.jsx
 │   │   │   ├── KpiCard.jsx
 │   │   │   ├── AiSummaryCard.jsx
@@ -126,6 +148,7 @@ Aetrix/
 │   │   │   └── ActionPlanPage.jsx
 │   │   ├── services/           # API Services
 │   │   ├── context/            # React Context
+│   │   │   └── CityContext.jsx # City selection state
 │   │   └── utils/              # Utility Functions
 │   └── package.json
 │
@@ -140,17 +163,23 @@ Aetrix/
 │   │   │   ├── ForecastController.java
 │   │   │   └── ActionPlanController.java
 │   │   ├── service/            # Business Logic
-│   │   ├── repository/         # Data Access
-│   │   ├── entity/             # JPA Entities
+│   │   ├── repository/         # Data Access (city-filtered queries)
+│   │   ├── entity/             # JPA Entities (with city column)
 │   │   ├── dto/                # Data Transfer Objects
 │   │   └── config/             # Configuration
 │   ├── src/main/resources/
-│   │   └── application.yml     # Spring Boot config (uses env vars)
+│   │   ├── application.yml     # Spring Boot config
+│   │   └── data/               # City-specific JSON data
+│   │       ├── cities.json     # Available cities list
+│   │       ├── ahmedabad/      # Ahmedabad data files
+│   │       ├── bangalore/      # Bangalore data files
+│   │       ├── delhi/          # Delhi data files
+│   │       └── mumbai/         # Mumbai data files
 │   └── pom.xml
 │
 ├── ML/                         # Machine Learning Module
 │   ├── .env.example            # ML environment template
-│   ├── main.py                 # Entry Point
+│   ├── main.py                 # Entry Point (multi-city support)
 │   ├── ml_models/
 │   │   ├── uhi_detection.py    # UHI ML Model
 │   │   ├── vegetation_stress.py # Vegetation Analysis
@@ -160,7 +189,15 @@ Aetrix/
 │   │   ├── accuracy_metrics.py # Model Evaluation
 │   │   └── api_endpoints.py    # FastAPI Endpoints
 │   ├── output/                 # Generated JSON Outputs
-│   └── *_TimeSeries_Final.csv  # City satellite data
+│   │   ├── cities.json         # Cities metadata
+│   │   ├── ahmedabad/          # Ahmedabad outputs
+│   │   ├── bangalore/          # Bangalore outputs
+│   │   ├── delhi/              # Delhi outputs
+│   │   └── mumbai/             # Mumbai outputs
+│   ├── Ahmedabad_TimeSeries_Final.csv
+│   ├── Bangalore_TimeSeries_Final.csv
+│   ├── Delhi_TimeSeries_Final.csv
+│   └── Mumbai_TimeSeries_Final.csv
 │
 └── README.md
 ```
@@ -203,7 +240,17 @@ cp ML/.env.example ML/.env
 | **MapTiler** | `REACT_APP_MAPTILER_KEY` | [cloud.maptiler.com](https://cloud.maptiler.com/account/keys/) |
 | **Groq LLM** | `GROQ_API_KEY` | [console.groq.com](https://console.groq.com/keys) |
 
-### 3. Frontend Setup
+> **Note:** The Groq API is used with the `llama-3.3-70b-versatile` model for generating AI-powered environmental summaries and action plan recommendations.
+
+### 3. Database Setup
+```bash
+# Create PostgreSQL database
+psql -U postgres -c "CREATE DATABASE aetrix_db;"
+psql -U postgres -c "CREATE USER aetrix_user WITH PASSWORD 'your_password';"
+psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE aetrix_db TO aetrix_user;"
+```
+
+### 4. Frontend Setup
 ```bash
 cd frontend
 
@@ -217,7 +264,7 @@ cp .env.example .env
 npm start
 ```
 
-### 4. Backend Setup
+### 5. Backend Setup
 ```bash
 cd backend
 
@@ -230,7 +277,7 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-### 5. ML Module Setup
+### 6. ML Module Setup
 ```bash
 cd ML
 
@@ -245,7 +292,7 @@ pip install python-dotenv  # For environment variable support
 # Configure environment (optional)
 cp .env.example .env
 
-# Run full analysis
+# Run full analysis for all cities
 python main.py
 
 # Or start API server
@@ -266,8 +313,22 @@ python main.py --api
 | `POSTGRES_DB` | Database name | `aetrix_db` |
 | `POSTGRES_USER` | Database user | `aetrix_user` |
 | `POSTGRES_PASSWORD` | Database password | - |
+| `DB_POOL_SIZE` | Connection pool size | `10` |
+| `DB_POOL_MIN_IDLE` | Minimum idle connections | `2` |
+| `DB_CONNECTION_TIMEOUT` | Connection timeout (ms) | `30000` |
+| `JPA_DDL_AUTO` | Hibernate DDL mode | `update` |
+| `JPA_SHOW_SQL` | Show SQL queries | `false` |
 | `GROQ_API_KEY` | Groq LLM API key | - |
-| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins | `http://localhost:3000` |
+| `GROQ_API_URL` | Groq API endpoint | `https://api.groq.com/openai/v1/chat/completions` |
+| `GROQ_MODEL` | LLM model to use | `llama-3.3-70b-versatile` |
+| `GROQ_MAX_TOKENS` | Max response tokens | `500` |
+| `GROQ_TEMPERATURE` | Model temperature | `0.3` |
+| `GROQ_TIMEOUT_SECONDS` | API timeout | `30` |
+| `LOG_LEVEL_APP` | Application log level | `INFO` |
+| `LOG_LEVEL_HIBERNATE` | Hibernate log level | `WARN` |
+| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins | `http://localhost:3000,http://localhost:5173` |
+| `CACHE_MAX_SIZE` | Max cache entries | `200` |
+| `CACHE_EXPIRE_MINUTES` | Cache TTL (minutes) | `60` |
 
 ### Frontend (`frontend/.env`)
 
@@ -276,6 +337,10 @@ python main.py --api
 | `REACT_APP_MAPTILER_KEY` | MapTiler API key | - |
 | `REACT_APP_API_URL` | Backend API URL | `http://localhost:8080` |
 | `REACT_APP_ML_API_URL` | ML Service URL | `http://localhost:8000` |
+| `REACT_APP_DEFAULT_CITY` | Default city selection | `Ahmedabad` |
+| `REACT_APP_REFRESH_INTERVAL` | Data refresh interval (ms) | `300000` |
+| `REACT_APP_ENABLE_ANALYTICS` | Enable analytics | `false` |
+| `REACT_APP_ENABLE_DEBUG` | Enable debug mode | `false` |
 
 ### ML Service (`ML/.env`)
 
@@ -283,8 +348,15 @@ python main.py --api
 |----------|-------------|---------|
 | `ML_API_HOST` | API host | `0.0.0.0` |
 | `ML_API_PORT` | API port | `8000` |
-| `CSV_DATA_PATH` | Path to data CSV | `Ahmedabad_TimeSeries_Final.csv` |
+| `OUTPUT_DIR` | Output directory | `output` |
+| `DEFAULT_CITY` | Default city for operations | `Ahmedabad` |
 | `LOG_LEVEL` | Logging level | `INFO` |
+| `WORKERS` | Uvicorn workers | `1` |
+| `ENABLE_UHI_MODEL` | Enable UHI model | `true` |
+| `ENABLE_VEGETATION_MODEL` | Enable vegetation model | `true` |
+| `ENABLE_POLLUTION_MODEL` | Enable pollution model | `true` |
+| `ENABLE_FORECAST_MODEL` | Enable forecast model | `true` |
+| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins | `http://localhost:3000,http://localhost:5173,http://localhost:8080` |
 
 ---
 
@@ -342,25 +414,28 @@ docker build -t aetrix-ml ./ML
 - [ ] Configure `CORS_ALLOWED_ORIGINS` with production URLs
 - [ ] Set `JPA_DDL_AUTO=validate` (not `update`)
 - [ ] Set `LOG_LEVEL_APP=INFO` or `WARN`
+- [ ] Set `JPA_SHOW_SQL=false`
+- [ ] Configure appropriate `DB_POOL_SIZE` for expected load
 - [ ] Enable HTTPS for all services
 - [ ] Rotate API keys periodically
+- [ ] Set `WORKERS` > 1 for ML service in production
 
 ---
 
 ## Usage
 
-### Running Full Analysis
+### Running Full Analysis (All Cities)
 ```bash
 cd ML
 python main.py
 ```
 
 This will:
-1. Load satellite data from CSV
-2. Train all ML models
-3. Generate heatmaps, hotspot zones, alerts
-4. Create action plan recommendations
-5. Save outputs to `output/` directory
+1. Load satellite data from CSV files for all 4 cities
+2. Train ML models for each city
+3. Generate city-specific heatmaps, hotspot zones, alerts
+4. Create action plan recommendations per city
+5. Save outputs to `output/<city>/` directories
 
 ### Getting Model Accuracy
 ```bash
@@ -379,16 +454,21 @@ python main.py --api
 ## API Endpoints
 
 ### Backend (Spring Boot) - Port 8080
+
+All endpoints support the `city` query parameter for city-specific data.
+
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/dashboard` | GET | Dashboard KPIs |
-| `/api/uhi/heatmap` | GET | UHI Heatmap Data |
-| `/api/uhi/hotspots` | GET | UHI Hotspot Zones |
-| `/api/vegetation/map` | GET | Vegetation Health Map |
-| `/api/vegetation/alerts` | GET | Vegetation Alerts |
-| `/api/pollution/risk-map` | GET | Pollution Risk Zones |
-| `/api/forecast/trends` | GET | LST Trend Predictions |
-| `/api/action-plan` | GET | Action Recommendations |
+| `/api/cities` | GET | List available cities |
+| `/api/dashboard?city=Ahmedabad` | GET | Dashboard KPIs for city |
+| `/api/uhi/heatmap?city=Ahmedabad` | GET | UHI Heatmap Data |
+| `/api/uhi/hotspots?city=Ahmedabad` | GET | UHI Hotspot Zones |
+| `/api/vegetation/map?city=Ahmedabad` | GET | Vegetation Health Map |
+| `/api/vegetation/alerts?city=Ahmedabad` | GET | Vegetation Alerts |
+| `/api/pollution/risk-map?city=Ahmedabad` | GET | Pollution Risk Zones |
+| `/api/pollution/hotspots?city=Ahmedabad` | GET | Pollution Hotspots |
+| `/api/forecast/trends?city=Ahmedabad` | GET | LST Trend Predictions |
+| `/api/action-plan?city=Ahmedabad` | GET | Action Recommendations |
 
 ### ML API (FastAPI) - Port 8000
 | Endpoint | Method | Description |
@@ -427,16 +507,40 @@ python main.py --api
 
 ## Output Files
 
+Each city has its own output directory (`output/<city>/`):
+
 | File | Description |
 |------|-------------|
 | `uhi_heatmap.json` | LST heatmap data for visualization |
 | `uhi_hotspots.json` | Clustered UHI hotspot zones |
+| `uhi_top_hottest.json` | Top N hottest locations |
 | `vegetation_map.json` | NDVI health classification map |
 | `vegetation_alerts.json` | Critical vegetation alerts |
+| `vegetation_plantation.json` | Recommended plantation zones |
 | `pollution_risk_map.json` | Pollution risk zone mapping |
+| `pollution_hotspots.json` | Pollution hotspot clusters |
 | `pollution_compliance.json` | Environmental compliance report |
 | `forecast_trend.json` | LST trend predictions |
+| `forecast_breach.json` | Threshold breach predictions |
+| `forecast_importance.json` | Feature importance analysis |
 | `action_plan.json` | Prioritized action recommendations |
+| `action_summary.json` | Summary of all actions |
+
+---
+
+## Database Schema
+
+All entities include a `city` column for multi-city data isolation:
+
+- `uhi_heatmap_points` - UHI temperature data points
+- `uhi_hotspots` - Clustered heat island zones
+- `vegetation_points` - NDVI health data
+- `vegetation_alerts` - Vegetation degradation alerts
+- `pollution_points` - Pollution risk data
+- `pollution_hotspots` - Pollution zone clusters
+- `forecast_steps` - Time-series forecast data
+- `action_items` - Recommended actions
+- `llm_summaries` - AI-generated summaries
 
 ---
 
@@ -444,7 +548,7 @@ python main.py --api
 
 **Team Name**: Sanskari Coders
 
-Developed for the AETRIX Hackathon by PDEU College
+Developed for the Satimage Hackathon by **Pandit Deendayal Energy University (PDEU)**
 
 ---
 
@@ -457,6 +561,6 @@ This project is developed for hackathon purposes. All rights reserved.
 ## Acknowledgments
 
 - **ISRO** - For providing satellite data access and guidance
-- **Pandit Deendayal Energy University** - For organizing the hackathon
+- **Ahmedabad University** - For organizing the hackathon
 - **Google Earth Engine** - For satellite data processing
 - **OpenStreetMap** - For base map data

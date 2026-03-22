@@ -1,0 +1,88 @@
+{
+  "total_clusters": 2,
+  "hotspots": [
+    {
+      "zone_id": 0,
+      "zone_name": "Central Industrial Cluster",
+      "center_lat": 28.694215,
+      "center_lng": 77.089208,
+      "point_count": 15,
+      "avg_risk_score": 57.5,
+      "max_risk_score": 62.8,
+      "severity": "Medium",
+      "recommended_action": "Quarterly assessment recommended",
+      "responsible_dept": "Municipal Corporation",
+      "boundary_points": [
+        {
+          "lat": 28.629859,
+          "lng": 77.03033
+        },
+        {
+          "lat": 28.629859,
+          "lng": 77.142847
+        },
+        {
+          "lat": 28.747778,
+          "lng": 77.142847
+        },
+        {
+          "lat": 28.747778,
+          "lng": 77.03033
+        }
+      ],
+      "point_ids": [
+        "2023_12_19_1_0",
+        "2023_12_19_7_0",
+        "2023_12_19_9_0",
+        "2023_12_19_11_0",
+        "2023_12_19_26_0",
+        "2023_12_19_31_0",
+        "2023_12_19_40_0",
+        "2023_12_19_52_0",
+        "2023_12_19_58_0",
+        "2023_12_19_60_0",
+        "2023_12_19_76_0",
+        "2023_12_19_81_0",
+        "2023_12_19_100_0",
+        "2023_12_19_113_0",
+        "2023_12_19_123_0"
+      ]
+    },
+    {
+      "zone_id": 1,
+      "zone_name": "Vatva Chemical Zone",
+      "center_lat": 28.625866,
+      "center_lng": 77.127403,
+      "point_count": 2,
+      "avg_risk_score": 56.6,
+      "max_risk_score": 57.9,
+      "severity": "Medium",
+      "recommended_action": "Quarterly assessment recommended",
+      "responsible_dept": "Municipal Corporation",
+      "boundary_points": [
+        {
+          "lat": 28.611873,
+          "lng": 77.110673
+        },
+        {
+          "lat": 28.611873,
+          "lng": 77.144134
+        },
+        {
+          "lat": 28.639859,
+          "lng": 77.144134
+        },
+        {
+          "lat": 28.639859,
+          "lng": 77.110673
+        }
+      ],
+      "point_ids": [
+        "2023_12_19_59_0",
+        "2023_12_19_107_0"
+      ]
+    }
+  ],
+  "city": "Delhi",
+  "state": "Delhi"
+}

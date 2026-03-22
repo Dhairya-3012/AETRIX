@@ -1,0 +1,128 @@
+{
+  "recommendation_basis": "Highest LST + Lowest NDVI zones",
+  "total_recommendations": 10,
+  "zones": [
+    {
+      "rank": 1,
+      "id": "2023_12_27_138_0",
+      "lat": 22.978133,
+      "lng": 72.591911,
+      "NDVI_Sentinel": 0.0628,
+      "lst_celsius": 28.57,
+      "priority": "Critical",
+      "action": "Immediate tree plantation required",
+      "estimated_trees_needed": 500,
+      "nearest_landmark": "South Ahmedabad"
+    },
+    {
+      "rank": 2,
+      "id": "2023_12_27_10_0",
+      "lat": 23.005112,
+      "lng": 72.645497,
+      "NDVI_Sentinel": 0.0643,
+      "lst_celsius": 26.63,
+      "priority": "Critical",
+      "action": "Immediate tree plantation required",
+      "estimated_trees_needed": 500,
+      "nearest_landmark": "East Ahmedabad"
+    },
+    {
+      "rank": 3,
+      "id": "2023_12_27_11_0",
+      "lat": 23.023099,
+      "lng": 72.586783,
+      "NDVI_Sentinel": 0.0688,
+      "lst_celsius": 26.19,
+      "priority": "Critical",
+      "action": "Immediate tree plantation required",
+      "estimated_trees_needed": 500,
+      "nearest_landmark": "Central Ahmedabad"
+    },
+    {
+      "rank": 4,
+      "id": "2023_12_27_68_0",
+      "lat": 23.041085,
+      "lng": 72.674654,
+      "NDVI_Sentinel": 0.1232,
+      "lst_celsius": 27.89,
+      "priority": "High",
+      "action": "Urgent plantation recommended within 30 days",
+      "estimated_trees_needed": 300,
+      "nearest_landmark": "East Ahmedabad"
+    },
+    {
+      "rank": 5,
+      "id": "2023_12_27_9_0",
+      "lat": 23.014106,
+      "lng": 72.591714,
+      "NDVI_Sentinel": 0.079,
+      "lst_celsius": 26.27,
+      "priority": "High",
+      "action": "Urgent plantation recommended within 30 days",
+      "estimated_trees_needed": 300,
+      "nearest_landmark": "Central Ahmedabad"
+    },
+    {
+      "rank": 6,
+      "id": "2023_12_27_59_0",
+      "lat": 22.960146,
+      "lng": 72.611554,
+      "NDVI_Sentinel": 0.1411,
+      "lst_celsius": 27.85,
+      "priority": "High",
+      "action": "Urgent plantation recommended within 30 days",
+      "estimated_trees_needed": 300,
+      "nearest_landmark": "South Ahmedabad"
+    },
+    {
+      "rank": 7,
+      "id": "2023_12_27_54_0",
+      "lat": 22.960146,
+      "lng": 72.621321,
+      "NDVI_Sentinel": 0.1485,
+      "lst_celsius": 27.99,
+      "priority": "High",
+      "action": "Urgent plantation recommended within 30 days",
+      "estimated_trees_needed": 300,
+      "nearest_landmark": "South Ahmedabad"
+    },
+    {
+      "rank": 8,
+      "id": "2023_12_27_131_0",
+      "lat": 23.077058,
+      "lng": 72.518122,
+      "NDVI_Sentinel": 0.1325,
+      "lst_celsius": 27.33,
+      "priority": "High",
+      "action": "Urgent plantation recommended within 30 days",
+      "estimated_trees_needed": 300,
+      "nearest_landmark": "North Ahmedabad"
+    },
+    {
+      "rank": 9,
+      "id": "2023_12_27_34_0",
+      "lat": 23.050079,
+      "lng": 72.532905,
+      "NDVI_Sentinel": 0.1021,
+      "lst_celsius": 26.13,
+      "priority": "High",
+      "action": "Urgent plantation recommended within 30 days",
+      "estimated_trees_needed": 300,
+      "nearest_landmark": "Central Ahmedabad"
+    },
+    {
+      "rank": 10,
+      "id": "2023_12_27_26_0",
+      "lat": 23.050079,
+      "lng": 72.581772,
+      "NDVI_Sentinel": 0.1146,
+      "lst_celsius": 26.47,
+      "priority": "High",
+      "action": "Urgent plantation recommended within 30 days",
+      "estimated_trees_needed": 300,
+      "nearest_landmark": "Central Ahmedabad"
+    }
+  ],
+  "city": "Ahmedabad",
+  "state": "Gujarat"
+}

@@ -1,12 +1,12 @@
 import api from './api';
 
 const forecastService = {
-  getTrend: () => api.get('/forecast/trend'),
-  getBreach: () => api.get('/forecast/breach'),
-  getHistorical: () => api.get('/forecast/historical'),
-  getPredicted: () => api.get('/forecast/predicted'),
-  getAiSummary: () => api.get('/forecast/ai-summary'),
-  regenerateAiSummary: () => api.post('/forecast/ai-summary/regenerate'),
+  getTrend: (city) => api.get('/forecast/trend', { params: { city } }),
+  getBreach: (city) => api.get('/forecast/breach', { params: { city } }),
+  getHistorical: (city) => api.get('/forecast/historical', { params: { city } }),
+  getPredicted: (city) => api.get('/forecast/predicted', { params: { city } }),
+  getAiSummary: (city) => api.get('/forecast/ai-summary', { params: { city } }),
+  regenerateAiSummary: (city) => api.post('/forecast/ai-summary/regenerate', null, { params: { city } }),
 };
 
 export default forecastService;

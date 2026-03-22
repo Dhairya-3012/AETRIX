@@ -3,34 +3,44 @@ import * as maptilersdk from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import Header from '../components/Header';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useCity } from '../context/CityContext';
 import uhiService from '../services/uhiService';
 import vegetationService from '../services/vegetationService';
 import pollutionService from '../services/pollutionService';
-import dashboardService from '../services/dashboardService';
 import { getLstColor, getNdviColor, getRiskColor } from '../utils/colorUtils';
+
+// Available map styles
+const MAP_STYLES = [
+  { id: 'streets-dark', label: 'Streets Dark', style: maptilersdk.MapStyle.STREETS.DARK },
+  { id: 'satellite', label: 'Satellite', style: maptilersdk.MapStyle.SATELLITE },
+  { id: 'hybrid', label: 'Hybrid', style: maptilersdk.MapStyle.HYBRID },
+  { id: 'topo', label: 'Topographic', style: maptilersdk.MapStyle.TOPO },
+  { id: 'outdoor', label: 'Outdoor', style: maptilersdk.MapStyle.OUTDOOR },
+];
 
 const MapPage = () => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markersRef = useRef([]);
   const [activeLayer, setActiveLayer] = useState('uhi');
+  const [activeMapStyle, setActiveMapStyle] = useState('streets-dark');
   const [loading, setLoading] = useState(true);
-  const [overview, setOverview] = useState(null);
+  const { selectedCity, setSelectedCity, cities, getCityCoordinates, cityInfo } = useCity();
   const [mapData, setMapData] = useState({
     uhi: [],
     vegetation: [],
     pollution: [],
   });
 
+  // Fetch data when city changes
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [uhiRes, vegRes, pollRes, overviewRes] = await Promise.all([
-          uhiService.getHeatmap(),
-          vegetationService.getMap(),
-          pollutionService.getMap(),
-          dashboardService.getOverview(),
+        const [uhiRes, vegRes, pollRes] = await Promise.all([
+          uhiService.getHeatmap(selectedCity),
+          vegetationService.getMap(selectedCity),
+          pollutionService.getMap(selectedCity),
         ]);
 
         setMapData({
@@ -38,10 +48,6 @@ const MapPage = () => {
           vegetation: vegRes?.success ? vegRes.data : [],
           pollution: pollRes?.success ? pollRes.data : [],
         });
-
-        if (overviewRes?.success) {
-          setOverview(overviewRes.data);
-        }
       } catch (err) {
         console.error('Error fetching map data:', err);
       } finally {
@@ -50,8 +56,9 @@ const MapPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedCity]);
 
+  // Initialize map
   useEffect(() => {
     if (map.current) return;
 
@@ -62,11 +69,12 @@ const MapPage = () => {
     }
 
     maptilersdk.config.apiKey = apiKey;
+    const coords = getCityCoordinates(selectedCity);
 
     map.current = new maptilersdk.Map({
       container: mapContainer.current,
       style: maptilersdk.MapStyle.STREETS.DARK,
-      center: [72.571, 23.022],
+      center: [coords.lng, coords.lat],
       zoom: 11,
     });
 
@@ -78,6 +86,27 @@ const MapPage = () => {
     };
   }, []);
 
+  // Update map center when city changes
+  useEffect(() => {
+    if (!map.current) return;
+    const coords = getCityCoordinates(selectedCity);
+    map.current.flyTo({
+      center: [coords.lng, coords.lat],
+      zoom: 11,
+      duration: 1500,
+    });
+  }, [selectedCity, getCityCoordinates]);
+
+  // Change map style
+  useEffect(() => {
+    if (!map.current) return;
+    const styleObj = MAP_STYLES.find(s => s.id === activeMapStyle);
+    if (styleObj) {
+      map.current.setStyle(styleObj.style);
+    }
+  }, [activeMapStyle]);
+
+  // Update markers
   useEffect(() => {
     if (!map.current || loading) return;
 
@@ -152,42 +181,40 @@ const MapPage = () => {
   }, [activeLayer, mapData, loading]);
 
   const layers = [
-    { id: 'uhi', label: 'UHI Heatmap', icon: '🌡️' },
-    { id: 'vegetation', label: 'Vegetation', icon: '🌿' },
-    { id: 'pollution', label: 'Pollution Risk', icon: '💨' },
+    { id: 'uhi', label: 'UHI Heatmap', icon: '' },
+    { id: 'vegetation', label: 'Vegetation', icon: '' },
+    { id: 'pollution', label: 'Pollution Risk', icon: '' },
   ];
 
   const legendItems = {
     uhi: [
-      { color: '#FF4444', label: '≥40°C (Critical)' },
-      { color: '#FF8C00', label: '35-40°C (High)' },
-      { color: '#FFD700', label: '30-35°C (Moderate)' },
-      { color: '#00E676', label: '<30°C (Normal)' },
+      { color: '#FF4444', label: '>=40C (Critical)' },
+      { color: '#FF8C00', label: '35-40C (High)' },
+      { color: '#FFD700', label: '30-35C (Moderate)' },
+      { color: '#00E676', label: '<30C (Normal)' },
     ],
     vegetation: [
-      { color: '#00E676', label: 'Healthy (≥0.5)' },
+      { color: '#00E676', label: 'Healthy (>=0.5)' },
       { color: '#4ADE80', label: 'Moderate (0.3-0.5)' },
       { color: '#FFD700', label: 'Stressed (0.15-0.3)' },
       { color: '#FF4444', label: 'Barren (<0.15)' },
     ],
     pollution: [
-      { color: '#FF4444', label: 'Critical (≥75)' },
+      { color: '#FF4444', label: 'Critical (>=75)' },
       { color: '#FF8C00', label: 'High (50-75)' },
       { color: '#FFD700', label: 'Medium (25-50)' },
       { color: '#00E676', label: 'Low (<25)' },
     ],
   };
 
-  const cityBadge = overview
-    ? `${overview.city}, ${overview.state} — INDIA | AETRIX`
-    : 'AHMEDABAD, GUJARAT — INDIA | AETRIX';
+  const cityBadge = `${selectedCity}, ${cityInfo.state} - INDIA | AETRIX`;
 
   return (
     <div className="page-container" style={{ padding: 0, paddingTop: '64px' }}>
       <Header
         title="Interactive Environmental Map"
-        city={overview?.city}
-        state={overview?.state}
+        city={selectedCity}
+        state={cityInfo.state}
       />
 
       <div className="map-container">
@@ -195,6 +222,41 @@ const MapPage = () => {
 
         <div className="map-city-badge">
           {cityBadge}
+        </div>
+
+        {/* City Selector */}
+        <div className="map-city-selector">
+          <label style={{ color: 'var(--text-secondary)', fontSize: '12px', marginBottom: '4px' }}>
+            Select City
+          </label>
+          <select
+            value={selectedCity}
+            onChange={(e) => setSelectedCity(e.target.value)}
+            className="city-select"
+          >
+            {cities.map(city => (
+              <option key={city} value={city}>{city}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Map Style Selector */}
+        <div className="map-style-selector">
+          <label style={{ color: 'var(--text-secondary)', fontSize: '12px', marginBottom: '4px' }}>
+            Map Style
+          </label>
+          <div className="map-style-buttons">
+            {MAP_STYLES.map(style => (
+              <button
+                key={style.id}
+                className={`map-style-btn ${activeMapStyle === style.id ? 'active' : ''}`}
+                onClick={() => setActiveMapStyle(style.id)}
+                title={style.label}
+              >
+                {style.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="map-controls">

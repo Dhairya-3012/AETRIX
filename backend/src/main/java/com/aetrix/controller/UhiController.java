@@ -20,22 +20,25 @@ public class UhiController {
 
     @GetMapping("/summary")
     @Operation(summary = "Get UHI summary statistics")
-    public ResponseEntity<ApiResponse<UhiHeatmapSummary>> getSummary() {
-        UhiHeatmapSummary summary = uhiService.getSummary();
+    public ResponseEntity<ApiResponse<UhiHeatmapSummary>> getSummary(
+            @RequestParam(required = false) String city) {
+        UhiHeatmapSummary summary = uhiService.getSummary(city);
         return ResponseEntity.ok(ApiResponse.success(summary));
     }
 
     @GetMapping("/heatmap")
     @Operation(summary = "Get all UHI heatmap points")
-    public ResponseEntity<ApiResponse<List<UhiHeatmapPoint>>> getHeatmap() {
-        List<UhiHeatmapPoint> heatmap = uhiService.getHeatmap();
+    public ResponseEntity<ApiResponse<List<UhiHeatmapPoint>>> getHeatmap(
+            @RequestParam(required = false) String city) {
+        List<UhiHeatmapPoint> heatmap = uhiService.getHeatmap(city);
         return ResponseEntity.ok(ApiResponse.success(heatmap));
     }
 
     @GetMapping("/hotspots")
     @Operation(summary = "Get all UHI hotspots")
-    public ResponseEntity<ApiResponse<List<UhiHotspot>>> getHotspots() {
-        List<UhiHotspot> hotspots = uhiService.getHotspots();
+    public ResponseEntity<ApiResponse<List<UhiHotspot>>> getHotspots(
+            @RequestParam(required = false) String city) {
+        List<UhiHotspot> hotspots = uhiService.getHotspots(city);
         return ResponseEntity.ok(ApiResponse.success(hotspots));
     }
 
@@ -51,22 +54,25 @@ public class UhiController {
 
     @GetMapping("/anomalies")
     @Operation(summary = "Get all anomalous UHI points")
-    public ResponseEntity<ApiResponse<List<UhiHeatmapPoint>>> getAnomalies() {
-        List<UhiHeatmapPoint> anomalies = uhiService.getAnomalies();
+    public ResponseEntity<ApiResponse<List<UhiHeatmapPoint>>> getAnomalies(
+            @RequestParam(required = false) String city) {
+        List<UhiHeatmapPoint> anomalies = uhiService.getAnomalies(city);
         return ResponseEntity.ok(ApiResponse.success(anomalies));
     }
 
     @GetMapping("/ai-summary")
     @Operation(summary = "Get AI-generated UHI summary")
-    public ResponseEntity<ApiResponse<GrokSummaryResponse>> getAiSummary() {
-        GrokSummaryResponse summary = uhiService.getAiSummary();
+    public ResponseEntity<ApiResponse<GrokSummaryResponse>> getAiSummary(
+            @RequestParam(required = false) String city) {
+        GrokSummaryResponse summary = uhiService.getAiSummary(city);
         return ResponseEntity.ok(ApiResponse.success(summary));
     }
 
     @PostMapping("/ai-summary/regenerate")
     @Operation(summary = "Regenerate AI UHI summary")
-    public ResponseEntity<ApiResponse<GrokSummaryResponse>> regenerateAiSummary() {
-        GrokSummaryResponse summary = uhiService.regenerateAiSummary();
+    public ResponseEntity<ApiResponse<GrokSummaryResponse>> regenerateAiSummary(
+            @RequestParam(required = false) String city) {
+        GrokSummaryResponse summary = uhiService.regenerateAiSummary(city);
         return ResponseEntity.ok(ApiResponse.success(summary));
     }
 }

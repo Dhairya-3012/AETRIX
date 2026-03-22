@@ -1,0 +1,24 @@
+{
+  "report_date": "2026-03-22",
+  "city": "Mumbai",
+  "total_non_compliant_zones": 2,
+  "zones": [
+    {
+      "zone_name": "Central Industrial Cluster",
+      "risk_score": 65.1,
+      "compliance_status": "Needs Review",
+      "satellite_evidence": "LST 31.7\u00b0C + NDVI 0.15 + Soil moisture 0.196",
+      "action_required": "Monthly monitoring required",
+      "deadline": "Within 30 days"
+    },
+    {
+      "zone_name": "Narol Chemical Zone",
+      "risk_score": 63.6,
+      "compliance_status": "Needs Review",
+      "satellite_evidence": "LST 30.0\u00b0C + NDVI 0.16 + Soil moisture 0.195",
+      "action_required": "Monthly monitoring required",
+      "deadline": "Within 30 days"
+    }
+  ],
+  "state": "Maharashtra"
+}

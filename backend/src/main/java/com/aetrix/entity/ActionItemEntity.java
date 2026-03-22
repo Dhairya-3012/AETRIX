@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "action_items", indexes = {
         @Index(name = "idx_action_priority", columnList = "priority"),
-        @Index(name = "idx_action_status", columnList = "status")
+        @Index(name = "idx_action_status", columnList = "status"),
+        @Index(name = "idx_action_city", columnList = "city")
 })
 @Data
 @Builder
@@ -24,7 +25,11 @@ public class ActionItemEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "action_id", length = 50, unique = true)
+    @Column(name = "city", length = 50, nullable = false)
+    @Builder.Default
+    private String city = "Ahmedabad";
+
+    @Column(name = "action_id", length = 50)
     private String actionId;
 
     @Column(name = "title", length = 255)

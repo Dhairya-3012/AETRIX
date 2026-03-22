@@ -46,10 +46,12 @@ public class GrokLLMService {
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    @Cacheable(value = "grok-summaries", key = "#featureKey")
-    public GrokSummaryResponse getSummary(String featureKey, String prompt) {
+    @Cacheable(value = "grok-summaries", key = "#featureKey + '_' + #city")
+    public GrokSummaryResponse getSummary(String featureKey, String city, String prompt) {
+        String cacheKey = featureKey + "_" + city;
+
         // Check if we have a recent cached summary in DB
-        Optional<LlmSummaryEntity> cachedSummary = llmSummaryRepository.findByFeatureKey(featureKey);
+        Optional<LlmSummaryEntity> cachedSummary = llmSummaryRepository.findByCityAndFeatureKey(city, featureKey);
         if (cachedSummary.isPresent()) {
             LlmSummaryEntity entity = cachedSummary.get();
             LocalDateTime generatedAt = entity.getLastRegenerated() != null
@@ -58,9 +60,10 @@ public class GrokLLMService {
 
             // Return cached if within 60 minutes
             if (generatedAt != null && ChronoUnit.MINUTES.between(generatedAt, LocalDateTime.now()) < 60) {
-                log.info("Returning cached summary for feature: {}", featureKey);
+                log.info("Returning cached summary for feature: {} city: {}", featureKey, city);
                 return GrokSummaryResponse.builder()
                         .featureKey(featureKey)
+                        .city(city)
                         .summaryText(entity.getSummaryText())
                         .modelUsed(entity.getModelUsed())
                         .generatedAt(generatedAt)
@@ -72,9 +75,10 @@ public class GrokLLMService {
         // Call Groq API
         String summaryText = callGroqApi(prompt);
         if (summaryText != null) {
-            saveSummaryToDb(featureKey, summaryText, prompt);
+            saveSummaryToDb(featureKey, city, summaryText, prompt);
             return GrokSummaryResponse.builder()
                     .featureKey(featureKey)
+                    .city(city)
                     .summaryText(summaryText)
                     .modelUsed(groqModel)
                     .generatedAt(LocalDateTime.now())
@@ -85,6 +89,7 @@ public class GrokLLMService {
         // Return fallback if API fails
         return GrokSummaryResponse.builder()
                 .featureKey(featureKey)
+                .city(city)
                 .summaryText("Unable to generate summary at this time. Please try again later.")
                 .modelUsed("fallback")
                 .generatedAt(LocalDateTime.now())
@@ -92,20 +97,21 @@ public class GrokLLMService {
                 .build();
     }
 
-    @CacheEvict(value = "grok-summaries", key = "#featureKey")
+    @CacheEvict(value = "grok-summaries", key = "#featureKey + '_' + #city")
     @Transactional
-    public GrokSummaryResponse regenerateSummary(String featureKey, String prompt) {
+    public GrokSummaryResponse regenerateSummary(String featureKey, String city, String prompt) {
         // Delete existing summary
-        llmSummaryRepository.findByFeatureKey(featureKey).ifPresent(entity -> {
+        llmSummaryRepository.findByCityAndFeatureKey(city, featureKey).ifPresent(entity -> {
             llmSummaryRepository.delete(entity);
         });
 
         // Generate new summary
         String summaryText = callGroqApi(prompt);
         if (summaryText != null) {
-            saveSummaryToDb(featureKey, summaryText, prompt);
+            saveSummaryToDb(featureKey, city, summaryText, prompt);
             return GrokSummaryResponse.builder()
                     .featureKey(featureKey)
+                    .city(city)
                     .summaryText(summaryText)
                     .modelUsed(groqModel)
                     .generatedAt(LocalDateTime.now())
@@ -115,6 +121,7 @@ public class GrokLLMService {
 
         return GrokSummaryResponse.builder()
                 .featureKey(featureKey)
+                .city(city)
                 .summaryText("Unable to regenerate summary at this time. Please try again later.")
                 .modelUsed("fallback")
                 .generatedAt(LocalDateTime.now())
@@ -164,8 +171,8 @@ public class GrokLLMService {
     }
 
     @Transactional
-    private void saveSummaryToDb(String featureKey, String summaryText, String prompt) {
-        Optional<LlmSummaryEntity> existing = llmSummaryRepository.findByFeatureKey(featureKey);
+    private void saveSummaryToDb(String featureKey, String city, String summaryText, String prompt) {
+        Optional<LlmSummaryEntity> existing = llmSummaryRepository.findByCityAndFeatureKey(city, featureKey);
         if (existing.isPresent()) {
             LlmSummaryEntity entity = existing.get();
             entity.setSummaryText(summaryText);
@@ -175,6 +182,7 @@ public class GrokLLMService {
             llmSummaryRepository.save(entity);
         } else {
             LlmSummaryEntity entity = LlmSummaryEntity.builder()
+                    .city(city)
                     .featureKey(featureKey)
                     .summaryText(summaryText)
                     .promptUsed(prompt)

@@ -107,14 +107,14 @@ public class ActionPlanService {
     public GrokSummaryResponse getAiSummary() {
         ActionPlanDto plan = getPlan();
         String prompt = grokLLMService.buildActionPlanPrompt(CITY, plan);
-        return grokLLMService.getSummary("action-plan", prompt);
+        return grokLLMService.getSummary("action-plan", CITY, prompt);
     }
 
     @CacheEvict(value = {"action-plan", "action-summary"}, allEntries = true)
     public GrokSummaryResponse regenerateAiSummary() {
         ActionPlanDto plan = getPlan();
         String prompt = grokLLMService.buildActionPlanPrompt(CITY, plan);
-        return grokLLMService.regenerateSummary("action-plan", prompt);
+        return grokLLMService.regenerateSummary("action-plan", CITY, prompt);
     }
 
     private ActionItemDto entityToDto(ActionItemEntity entity) {

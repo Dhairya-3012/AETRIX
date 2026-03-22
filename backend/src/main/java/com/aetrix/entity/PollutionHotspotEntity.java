@@ -10,7 +10,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "pollution_hotspots")
+@Table(name = "pollution_hotspots", indexes = {
+        @Index(name = "idx_poll_hotspot_city", columnList = "city")
+})
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,6 +22,10 @@ public class PollutionHotspotEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "city", length = 50, nullable = false)
+    @Builder.Default
+    private String city = "Ahmedabad";
 
     @Column(name = "zone_name", length = 100)
     private String zoneName;

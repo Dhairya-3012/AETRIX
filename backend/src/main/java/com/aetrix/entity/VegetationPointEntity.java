@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "vegetation_points", indexes = {
-        @Index(name = "idx_veg_health", columnList = "health_label")
+        @Index(name = "idx_veg_health", columnList = "health_label"),
+        @Index(name = "idx_veg_city", columnList = "city")
 })
 @Data
 @Builder
@@ -22,6 +23,10 @@ public class VegetationPointEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "city", length = 50, nullable = false)
+    @Builder.Default
+    private String city = "Ahmedabad";
 
     @Column(name = "point_id", length = 20)
     private String pointId;

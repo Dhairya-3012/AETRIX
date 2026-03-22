@@ -10,7 +10,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "vegetation_alerts")
+@Table(name = "vegetation_alerts", indexes = {
+        @Index(name = "idx_veg_alert_city", columnList = "city")
+})
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,6 +22,10 @@ public class VegetationAlertEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "city", length = 50, nullable = false)
+    @Builder.Default
+    private String city = "Ahmedabad";
 
     @Column(name = "point_id", length = 20)
     private String pointId;

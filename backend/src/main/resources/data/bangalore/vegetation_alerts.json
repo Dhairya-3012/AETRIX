@@ -1,0 +1,37 @@
+{
+  "total_critical_alerts": 3,
+  "threshold_used": 0.0835,
+  "city_mean_ndvi": 0.1996,
+  "z_score_threshold": -2.0,
+  "alerts": [
+    {
+      "id": "2023_12_27_63_0",
+      "lat": 12.968695,
+      "lng": 77.579229,
+      "NDVI_Sentinel": 0.0586,
+      "z_score": -2.43,
+      "severity": "Medium",
+      "message": "NDVI 2.4 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "2023_12_27_54_0",
+      "lat": 12.905742,
+      "lng": 77.633461,
+      "NDVI_Sentinel": 0.0709,
+      "z_score": -2.22,
+      "severity": "Medium",
+      "message": "NDVI 2.2 std below city mean \u2014 urgent intervention needed"
+    },
+    {
+      "id": "2023_12_27_59_0",
+      "lat": 12.905742,
+      "lng": 77.633461,
+      "NDVI_Sentinel": 0.0709,
+      "z_score": -2.22,
+      "severity": "Medium",
+      "message": "NDVI 2.2 std below city mean \u2014 urgent intervention needed"
+    }
+  ],
+  "city": "Bangalore",
+  "state": "Karnataka"
+}

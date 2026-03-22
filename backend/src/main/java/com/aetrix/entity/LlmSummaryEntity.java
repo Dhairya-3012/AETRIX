@@ -11,7 +11,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "llm_summaries", indexes = {
-        @Index(name = "idx_llm_feature", columnList = "feature_key")
+        @Index(name = "idx_llm_feature", columnList = "feature_key"),
+        @Index(name = "idx_llm_city", columnList = "city")
+}, uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"city", "feature_key"})
 })
 @Data
 @Builder
@@ -23,7 +26,11 @@ public class LlmSummaryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "feature_key", length = 50, unique = true, nullable = false)
+    @Column(name = "city", length = 50, nullable = false)
+    @Builder.Default
+    private String city = "Ahmedabad";
+
+    @Column(name = "feature_key", length = 50, nullable = false)
     private String featureKey;
 
     @Column(name = "summary_text", columnDefinition = "TEXT")

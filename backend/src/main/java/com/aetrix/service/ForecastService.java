@@ -21,24 +21,26 @@ public class ForecastService {
     private final UhiHeatmapRepository uhiHeatmapRepository;
     private final GrokLLMService grokLLMService;
 
-    private static final String CITY = "Ahmedabad";
+    private static final String DEFAULT_CITY = "Ahmedabad";
     private static final double DANGER_THRESHOLD = 35.0;
 
-    @Cacheable("forecast-trend")
-    public ForecastTrendDto getTrend() {
-        List<ForecastStep> historical = forecastStepRepository.findByStepTypeOrderByStepAsc("historical")
+    @Cacheable(value = "forecast-trend", key = "#city")
+    public ForecastTrendDto getTrend(String city) {
+        if (city == null || city.isBlank()) city = DEFAULT_CITY;
+
+        List<ForecastStep> historical = forecastStepRepository.findByCityAndStepTypeOrderByStepAsc(city, "historical")
                 .stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
 
-        List<ForecastStep> predicted = forecastStepRepository.findByStepTypeOrderByStepAsc("predicted")
+        List<ForecastStep> predicted = forecastStepRepository.findByCityAndStepTypeOrderByStepAsc(city, "predicted")
                 .stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
 
-        Double predictedMean = forecastStepRepository.findPredictedMean();
-        Double predictedMin = forecastStepRepository.findPredictedMin();
-        Double predictedMax = forecastStepRepository.findPredictedMax();
+        Double predictedMean = forecastStepRepository.findPredictedMean(city);
+        Double predictedMin = forecastStepRepository.findPredictedMin(city);
+        Double predictedMax = forecastStepRepository.findPredictedMax(city);
 
         // Calculate trend direction and rate
         String trendDirection = "stable";
@@ -65,14 +67,22 @@ public class ForecastService {
                 .predictedMin(predictedMin)
                 .predictedMax(predictedMax)
                 .modelType("ARIMA(2,1,2)")
-                .city(CITY)
+                .city(city)
                 .build();
     }
 
-    @Cacheable("forecast-breach")
-    public ForecastBreachDto getBreach() {
-        long totalPoints = uhiHeatmapRepository.count();
-        long breachCount = uhiHeatmapRepository.findAll().stream()
+    // Legacy method
+    public ForecastTrendDto getTrend() {
+        return getTrend(DEFAULT_CITY);
+    }
+
+    @Cacheable(value = "forecast-breach", key = "#city")
+    public ForecastBreachDto getBreach(String city) {
+        if (city == null || city.isBlank()) city = DEFAULT_CITY;
+
+        long totalPoints = uhiHeatmapRepository.countByCity(city);
+        final String finalCity = city;
+        long breachCount = uhiHeatmapRepository.findByCity(city).stream()
                 .filter(p -> p.getLstCelsius() != null && p.getLstCelsius() > DANGER_THRESHOLD)
                 .count();
 
@@ -96,36 +106,65 @@ public class ForecastService {
                 .riskLevel(riskLevel)
                 .whatIfWarmer(whatIfWarmer)
                 .whatIfCooler(whatIfCooler)
-                .city(CITY)
+                .city(city)
                 .build();
     }
 
+    // Legacy method
+    public ForecastBreachDto getBreach() {
+        return getBreach(DEFAULT_CITY);
+    }
+
+    // Legacy method
     public List<ForecastStep> getHistorical() {
-        return forecastStepRepository.findByStepTypeOrderByStepAsc("historical")
+        return getHistorical(DEFAULT_CITY);
+    }
+
+    public List<ForecastStep> getHistorical(String city) {
+        if (city == null || city.isBlank()) city = DEFAULT_CITY;
+        return forecastStepRepository.findByCityAndStepTypeOrderByStepAsc(city, "historical")
                 .stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
 
+    // Legacy method
     public List<ForecastStep> getPredicted() {
-        return forecastStepRepository.findByStepTypeOrderByStepAsc("predicted")
+        return getPredicted(DEFAULT_CITY);
+    }
+
+    public List<ForecastStep> getPredicted(String city) {
+        if (city == null || city.isBlank()) city = DEFAULT_CITY;
+        return forecastStepRepository.findByCityAndStepTypeOrderByStepAsc(city, "predicted")
                 .stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
 
+    // Legacy method
     public GrokSummaryResponse getAiSummary() {
-        ForecastTrendDto trend = getTrend();
-        ForecastBreachDto breach = getBreach();
-        String prompt = grokLLMService.buildForecastPrompt(CITY, trend, breach);
-        return grokLLMService.getSummary("forecast", prompt);
+        return getAiSummary(DEFAULT_CITY);
     }
 
+    public GrokSummaryResponse getAiSummary(String city) {
+        if (city == null || city.isBlank()) city = DEFAULT_CITY;
+        ForecastTrendDto trend = getTrend(city);
+        ForecastBreachDto breach = getBreach(city);
+        String prompt = grokLLMService.buildForecastPrompt(city, trend, breach);
+        return grokLLMService.getSummary("forecast", city, prompt);
+    }
+
+    // Legacy method
     public GrokSummaryResponse regenerateAiSummary() {
-        ForecastTrendDto trend = getTrend();
-        ForecastBreachDto breach = getBreach();
-        String prompt = grokLLMService.buildForecastPrompt(CITY, trend, breach);
-        return grokLLMService.regenerateSummary("forecast", prompt);
+        return regenerateAiSummary(DEFAULT_CITY);
+    }
+
+    public GrokSummaryResponse regenerateAiSummary(String city) {
+        if (city == null || city.isBlank()) city = DEFAULT_CITY;
+        ForecastTrendDto trend = getTrend(city);
+        ForecastBreachDto breach = getBreach(city);
+        String prompt = grokLLMService.buildForecastPrompt(city, trend, breach);
+        return grokLLMService.regenerateSummary("forecast", city, prompt);
     }
 
     private ForecastStep entityToDto(ForecastStepEntity entity) {

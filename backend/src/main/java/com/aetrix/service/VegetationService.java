@@ -22,17 +22,24 @@ public class VegetationService {
     private final VegetationAlertRepository vegetationAlertRepository;
     private final GrokLLMService grokLLMService;
 
-    private static final String CITY = "Ahmedabad";
+    private static final String DEFAULT_CITY = "Ahmedabad";
     private static final String DATA_SOURCE = "Sentinel-2 NDVI, Landsat NDVI";
 
-    @Cacheable("vegetation-summary")
+    // Legacy method for backward compatibility
     public VegetationSummary getSummary() {
-        long total = vegetationPointRepository.count();
-        long healthyCount = vegetationPointRepository.countByHealthLabel("Healthy");
-        long stressedCount = vegetationPointRepository.countByHealthLabel("Stressed");
-        long barrenCount = vegetationPointRepository.countByHealthLabel("Barren");
-        long alertCount = vegetationAlertRepository.count();
-        Double meanNdvi = vegetationPointRepository.findCityMeanNdvi();
+        return getSummary(DEFAULT_CITY);
+    }
+
+    @Cacheable(value = "vegetation-summary", key = "#city")
+    public VegetationSummary getSummary(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+
+        long total = vegetationPointRepository.countByCity(targetCity);
+        long healthyCount = vegetationPointRepository.countByCityAndHealthLabel(targetCity, "Healthy");
+        long stressedCount = vegetationPointRepository.countByCityAndHealthLabel(targetCity, "Stressed");
+        long barrenCount = vegetationPointRepository.countByCityAndHealthLabel(targetCity, "Barren");
+        long alertCount = vegetationAlertRepository.countByCity(targetCity);
+        Double meanNdvi = vegetationPointRepository.findCityMeanNdvi(targetCity);
 
         return VegetationSummary.builder()
                 .totalPoints((int) total)
@@ -45,45 +52,74 @@ public class VegetationService {
                 .barrenPercentage(total > 0 ? (barrenCount * 100.0 / total) : 0.0)
                 .alertCount((int) alertCount)
                 .dataSource(DATA_SOURCE)
-                .city(CITY)
+                .city(targetCity)
                 .build();
     }
 
-    @Cacheable("vegetation-map")
+    // Legacy method
     public List<VegetationPoint> getMap() {
-        return vegetationPointRepository.findAll().stream()
+        return getMap(DEFAULT_CITY);
+    }
+
+    @Cacheable(value = "vegetation-map", key = "#city")
+    public List<VegetationPoint> getMap(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        return vegetationPointRepository.findByCity(targetCity).stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
 
-    @Cacheable("vegetation-alerts")
+    // Legacy method
     public List<VegetationAlert> getAlerts() {
-        return vegetationAlertRepository.findAllOrderByZScoreDesc().stream()
+        return getAlerts(DEFAULT_CITY);
+    }
+
+    @Cacheable(value = "vegetation-alerts", key = "#city")
+    public List<VegetationAlert> getAlerts(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        return vegetationAlertRepository.findByCityOrderByZScoreDesc(targetCity).stream()
                 .map(this::alertEntityToDto)
                 .collect(Collectors.toList());
     }
 
+    // Legacy method
     public List<VegetationPoint> getPlantationRecommendations() {
-        // Return stressed and barren areas as plantation recommendations
-        return vegetationPointRepository.findAllOrderByNdviAsc().stream()
+        return getPlantationRecommendations(DEFAULT_CITY);
+    }
+
+    public List<VegetationPoint> getPlantationRecommendations(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        return vegetationPointRepository.findByCityOrderByNdviAsc(targetCity).stream()
                 .filter(p -> "Stressed".equals(p.getHealthLabel()) || "Barren".equals(p.getHealthLabel()))
                 .limit(20)
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
 
+    // Legacy method
     public GrokSummaryResponse getAiSummary() {
-        VegetationSummary summary = getSummary();
-        List<VegetationAlert> alerts = getAlerts();
-        String prompt = grokLLMService.buildVegetationPrompt(CITY, summary, alerts);
-        return grokLLMService.getSummary("vegetation", prompt);
+        return getAiSummary(DEFAULT_CITY);
     }
 
+    public GrokSummaryResponse getAiSummary(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        VegetationSummary summary = getSummary(targetCity);
+        List<VegetationAlert> alerts = getAlerts(targetCity);
+        String prompt = grokLLMService.buildVegetationPrompt(targetCity, summary, alerts);
+        return grokLLMService.getSummary("vegetation", targetCity, prompt);
+    }
+
+    // Legacy method
     public GrokSummaryResponse regenerateAiSummary() {
-        VegetationSummary summary = getSummary();
-        List<VegetationAlert> alerts = getAlerts();
-        String prompt = grokLLMService.buildVegetationPrompt(CITY, summary, alerts);
-        return grokLLMService.regenerateSummary("vegetation", prompt);
+        return regenerateAiSummary(DEFAULT_CITY);
+    }
+
+    public GrokSummaryResponse regenerateAiSummary(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        VegetationSummary summary = getSummary(targetCity);
+        List<VegetationAlert> alerts = getAlerts(targetCity);
+        String prompt = grokLLMService.buildVegetationPrompt(targetCity, summary, alerts);
+        return grokLLMService.regenerateSummary("vegetation", targetCity, prompt);
     }
 
     private VegetationPoint entityToDto(VegetationPointEntity entity) {

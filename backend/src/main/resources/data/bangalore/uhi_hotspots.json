@@ -1,0 +1,66 @@
+{
+  "city": "Bangalore",
+  "total_hotspot_zones": 2,
+  "hotspots": [
+    {
+      "zone_id": 0,
+      "zone_name": "North Ahmedabad Industrial Zone",
+      "center_lat": 13.034645,
+      "center_lng": 77.433693,
+      "point_count": 3,
+      "avg_lst_celsius": 30.05,
+      "max_lst_celsius": 30.49,
+      "min_lst_celsius": 29.61,
+      "severity": "Low",
+      "boundary_points": [
+        {
+          "lat": 13.017654,
+          "lng": 77.424152
+        },
+        {
+          "lat": 13.017654,
+          "lng": 77.444172
+        },
+        {
+          "lat": 13.054634,
+          "lng": 77.444172
+        },
+        {
+          "lat": 13.054634,
+          "lng": 77.424152
+        }
+      ],
+      "point_ids": [
+        "2023_12_27_44_0",
+        "2023_12_27_61_0",
+        "2023_12_27_132_0"
+      ]
+    },
+    {
+      "zone_id": 1,
+      "zone_name": "South Ahmedabad Mixed-Use Zone",
+      "center_lat": 12.905742,
+      "center_lng": 77.458163,
+      "point_count": 2,
+      "avg_lst_celsius": 30.27,
+      "max_lst_celsius": 30.49,
+      "min_lst_celsius": 30.05,
+      "severity": "Low",
+      "boundary_points": [
+        {
+          "lat": 12.914735,
+          "lng": 77.460949
+        },
+        {
+          "lat": 12.896749,
+          "lng": 77.455377
+        }
+      ],
+      "point_ids": [
+        "2023_12_27_53_0",
+        "2023_12_27_89_0"
+      ]
+    }
+  ],
+  "state": "Karnataka"
+}

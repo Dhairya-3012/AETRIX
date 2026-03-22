@@ -26,18 +26,25 @@ public class PollutionService {
     private final GrokLLMService grokLLMService;
     private final ObjectMapper objectMapper;
 
-    private static final String CITY = "Ahmedabad";
+    private static final String DEFAULT_CITY = "Ahmedabad";
     private static final String DATA_SOURCE = "Multi-satellite Composite Analysis";
 
-    @Cacheable("pollution-summary")
+    // Legacy method for backward compatibility
     public PollutionRiskSummary getSummary() {
-        long total = pollutionPointRepository.count();
-        long criticalCount = pollutionPointRepository.countByRiskCategory("Critical");
-        long highCount = pollutionPointRepository.countByRiskCategory("High");
-        long mediumCount = pollutionPointRepository.countByRiskCategory("Medium");
-        long lowCount = pollutionPointRepository.countByRiskCategory("Low");
-        long outlierCount = pollutionPointRepository.countByIsExtremeOutlierTrue();
-        Double meanRisk = pollutionPointRepository.findCityMeanRisk();
+        return getSummary(DEFAULT_CITY);
+    }
+
+    @Cacheable(value = "pollution-summary", key = "#city")
+    public PollutionRiskSummary getSummary(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+
+        long total = pollutionPointRepository.countByCity(targetCity);
+        long criticalCount = pollutionPointRepository.countByCityAndRiskCategory(targetCity, "Critical");
+        long highCount = pollutionPointRepository.countByCityAndRiskCategory(targetCity, "High");
+        long mediumCount = pollutionPointRepository.countByCityAndRiskCategory(targetCity, "Medium");
+        long lowCount = pollutionPointRepository.countByCityAndRiskCategory(targetCity, "Low");
+        long outlierCount = pollutionPointRepository.countByCityAndIsExtremeOutlierTrue(targetCity);
+        Double meanRisk = pollutionPointRepository.findCityMeanRisk(targetCity);
 
         return PollutionRiskSummary.builder()
                 .totalPoints((int) total)
@@ -52,50 +59,85 @@ public class PollutionService {
                 .lowPercentage(total > 0 ? (lowCount * 100.0 / total) : 0.0)
                 .extremeOutlierCount((int) outlierCount)
                 .dataSource(DATA_SOURCE)
-                .city(CITY)
+                .city(targetCity)
                 .build();
     }
 
-    @Cacheable("pollution-map")
+    // Legacy method
     public List<PollutionPoint> getMap() {
-        return pollutionPointRepository.findAll().stream()
+        return getMap(DEFAULT_CITY);
+    }
+
+    @Cacheable(value = "pollution-map", key = "#city")
+    public List<PollutionPoint> getMap(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        return pollutionPointRepository.findByCity(targetCity).stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
 
-    @Cacheable("pollution-hotspots")
+    // Legacy method
     public List<PollutionHotspot> getHotspots() {
-        return pollutionHotspotRepository.findAllByOrderByAvgRiskScoreDesc().stream()
+        return getHotspots(DEFAULT_CITY);
+    }
+
+    @Cacheable(value = "pollution-hotspots", key = "#city")
+    public List<PollutionHotspot> getHotspots(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        return pollutionHotspotRepository.findByCityOrderByAvgRiskScoreDesc(targetCity).stream()
                 .map(this::hotspotEntityToDto)
                 .collect(Collectors.toList());
     }
 
+    // Legacy method
     public List<PollutionPoint> getOutliers() {
-        return pollutionPointRepository.findByIsExtremeOutlierTrue().stream()
+        return getOutliers(DEFAULT_CITY);
+    }
+
+    public List<PollutionPoint> getOutliers(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        return pollutionPointRepository.findByCityAndIsExtremeOutlierTrue(targetCity).stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
 
+    // Legacy method
     public List<PollutionPoint> getCompliance() {
-        // Return points that need compliance attention (critical and high risk)
-        return pollutionPointRepository.findAllOrderByRiskScoreDesc().stream()
+        return getCompliance(DEFAULT_CITY);
+    }
+
+    public List<PollutionPoint> getCompliance(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        return pollutionPointRepository.findByCityOrderByRiskScoreDesc(targetCity).stream()
                 .filter(p -> "Critical".equals(p.getRiskCategory()) || "High".equals(p.getRiskCategory()))
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
 
+    // Legacy method
     public GrokSummaryResponse getAiSummary() {
-        PollutionRiskSummary summary = getSummary();
-        List<PollutionHotspot> hotspots = getHotspots();
-        String prompt = grokLLMService.buildPollutionPrompt(CITY, summary, hotspots);
-        return grokLLMService.getSummary("pollution", prompt);
+        return getAiSummary(DEFAULT_CITY);
     }
 
+    public GrokSummaryResponse getAiSummary(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        PollutionRiskSummary summary = getSummary(targetCity);
+        List<PollutionHotspot> hotspots = getHotspots(targetCity);
+        String prompt = grokLLMService.buildPollutionPrompt(targetCity, summary, hotspots);
+        return grokLLMService.getSummary("pollution", targetCity, prompt);
+    }
+
+    // Legacy method
     public GrokSummaryResponse regenerateAiSummary() {
-        PollutionRiskSummary summary = getSummary();
-        List<PollutionHotspot> hotspots = getHotspots();
-        String prompt = grokLLMService.buildPollutionPrompt(CITY, summary, hotspots);
-        return grokLLMService.regenerateSummary("pollution", prompt);
+        return regenerateAiSummary(DEFAULT_CITY);
+    }
+
+    public GrokSummaryResponse regenerateAiSummary(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        PollutionRiskSummary summary = getSummary(targetCity);
+        List<PollutionHotspot> hotspots = getHotspots(targetCity);
+        String prompt = grokLLMService.buildPollutionPrompt(targetCity, summary, hotspots);
+        return grokLLMService.regenerateSummary("pollution", targetCity, prompt);
     }
 
     private PollutionPoint entityToDto(PollutionPointEntity entity) {

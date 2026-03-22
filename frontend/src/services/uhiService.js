@@ -1,13 +1,13 @@
 import api from './api';
 
 const uhiService = {
-  getSummary: () => api.get('/uhi/summary'),
-  getHeatmap: () => api.get('/uhi/heatmap'),
-  getHotspots: () => api.get('/uhi/hotspots'),
+  getSummary: (city) => api.get('/uhi/summary', { params: { city } }),
+  getHeatmap: (city) => api.get('/uhi/heatmap', { params: { city } }),
+  getHotspots: (city) => api.get('/uhi/hotspots', { params: { city } }),
   getHotspotById: (id) => api.get(`/uhi/hotspots/${id}`),
-  getAnomalies: () => api.get('/uhi/anomalies'),
-  getAiSummary: () => api.get('/uhi/ai-summary'),
-  regenerateAiSummary: () => api.post('/uhi/ai-summary/regenerate'),
+  getAnomalies: (city) => api.get('/uhi/anomalies', { params: { city } }),
+  getAiSummary: (city) => api.get('/uhi/ai-summary', { params: { city } }),
+  regenerateAiSummary: (city) => api.post('/uhi/ai-summary/regenerate', null, { params: { city } }),
 };
 
 export default uhiService;

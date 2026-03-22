@@ -17,10 +17,12 @@ import KpiCard from '../components/KpiCard';
 import AlertStrip from '../components/AlertStrip';
 import AiSummaryCard from '../components/AiSummaryCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useCity } from '../context/CityContext';
 import forecastService from '../services/forecastService';
 import { formatTemperature, formatPercent, formatNumber } from '../utils/formatters';
 
 const ForecastPage = () => {
+  const { selectedCity, cityInfo } = useCity();
   const [trend, setTrend] = useState(null);
   const [breach, setBreach] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -30,8 +32,8 @@ const ForecastPage = () => {
       setLoading(true);
       try {
         const [trendRes, breachRes] = await Promise.all([
-          forecastService.getTrend(),
-          forecastService.getBreach(),
+          forecastService.getTrend(selectedCity),
+          forecastService.getBreach(selectedCity),
         ]);
 
         if (trendRes?.success) setTrend(trendRes.data);
@@ -44,12 +46,12 @@ const ForecastPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedCity]);
 
   if (loading) {
     return (
       <div className="page-container">
-        <Header title="Temperature Forecast" />
+        <Header title="Temperature Forecast" city={selectedCity} state={cityInfo.state} />
         <LoadingSpinner />
       </div>
     );
@@ -93,8 +95,9 @@ const ForecastPage = () => {
     <div className="page-container">
       <Header
         title="Temperature Forecast"
-        subtitle={`AETRIX — India Environmental Intelligence | ${trend?.city || 'Ahmedabad'}`}
-        city={trend?.city}
+        subtitle={`AETRIX — India Environmental Intelligence | ${selectedCity}`}
+        city={selectedCity}
+        state={cityInfo.state}
       />
 
       {breach?.breachCount > 0 && breach?.riskLevel === 'critical' && (
@@ -289,8 +292,8 @@ const ForecastPage = () => {
         <AiSummaryCard
           title="AI Forecast Analysis"
           featureKey="forecast"
-          fetchSummary={forecastService.getAiSummary}
-          regenerateSummary={forecastService.regenerateAiSummary}
+          fetchSummary={() => forecastService.getAiSummary(selectedCity)}
+          regenerateSummary={() => forecastService.regenerateAiSummary(selectedCity)}
         />
       </div>
     </div>

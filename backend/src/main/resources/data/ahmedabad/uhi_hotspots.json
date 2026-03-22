@@ -1,0 +1,77 @@
+{
+  "city": "Ahmedabad",
+  "total_hotspot_zones": 2,
+  "hotspots": [
+    {
+      "zone_id": 1,
+      "zone_name": "East Ahmedabad Commercial Zone",
+      "center_lat": 22.945757,
+      "center_lng": 72.590166,
+      "point_count": 5,
+      "avg_lst_celsius": 28.3,
+      "max_lst_celsius": 29.11,
+      "min_lst_celsius": 27.71,
+      "severity": "Low",
+      "boundary_points": [
+        {
+          "lat": 22.91018,
+          "lng": 72.567605
+        },
+        {
+          "lat": 22.91018,
+          "lng": 72.626321
+        },
+        {
+          "lat": 22.983133,
+          "lng": 72.626321
+        },
+        {
+          "lat": 22.983133,
+          "lng": 72.567605
+        }
+      ],
+      "point_ids": [
+        "2023_12_27_54_0",
+        "2023_12_27_107_0",
+        "2023_12_27_112_0",
+        "2023_12_27_119_0",
+        "2023_12_27_138_0"
+      ]
+    },
+    {
+      "zone_id": 0,
+      "zone_name": "South Ahmedabad Residential Zone",
+      "center_lat": 22.924174,
+      "center_lng": 72.484853,
+      "point_count": 3,
+      "avg_lst_celsius": 28.14,
+      "max_lst_celsius": 28.23,
+      "min_lst_celsius": 28.09,
+      "severity": "Low",
+      "boundary_points": [
+        {
+          "lat": 22.91018,
+          "lng": 72.475041
+        },
+        {
+          "lat": 22.91018,
+          "lng": 72.494804
+        },
+        {
+          "lat": 22.94716,
+          "lng": 72.494804
+        },
+        {
+          "lat": 22.94716,
+          "lng": 72.475041
+        }
+      ],
+      "point_ids": [
+        "2023_12_27_32_0",
+        "2023_12_27_56_0",
+        "2023_12_27_75_0"
+      ]
+    }
+  ],
+  "state": "Gujarat"
+}

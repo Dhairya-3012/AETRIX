@@ -16,6 +16,7 @@ import AlertStrip from '../components/AlertStrip';
 import AiSummaryCard from '../components/AiSummaryCard';
 import DataSourcesStrip from '../components/DataSourcesStrip';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useCity } from '../context/CityContext';
 import dashboardService from '../services/dashboardService';
 import uhiService from '../services/uhiService';
 import vegetationService from '../services/vegetationService';
@@ -25,6 +26,7 @@ import actionService from '../services/actionService';
 import { formatNumber, formatTemperature, formatPercent } from '../utils/formatters';
 
 const DashboardPage = () => {
+  const { selectedCity, cityInfo } = useCity();
   const [overview, setOverview] = useState(null);
   const [pollutionHotspots, setPollutionHotspots] = useState([]);
   const [forecastTrend, setForecastTrend] = useState(null);
@@ -36,9 +38,9 @@ const DashboardPage = () => {
       setLoading(true);
       try {
         const [overviewRes, pollutionRes, forecastRes, actionsRes] = await Promise.all([
-          dashboardService.getOverview(),
-          pollutionService.getHotspots(),
-          forecastService.getTrend(),
+          dashboardService.getOverview(selectedCity),
+          pollutionService.getHotspots(selectedCity),
+          forecastService.getTrend(selectedCity),
           actionService.getHighPriority(),
         ]);
 
@@ -54,12 +56,12 @@ const DashboardPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedCity]);
 
   if (loading) {
     return (
       <div className="page-container">
-        <Header title="Environmental Intelligence Dashboard" />
+        <Header title="Environmental Intelligence Dashboard" city={selectedCity} state={cityInfo.state} />
         <LoadingSpinner />
       </div>
     );

@@ -26,20 +26,27 @@ public class UhiService {
     private final GrokLLMService grokLLMService;
     private final ObjectMapper objectMapper;
 
-    private static final String CITY = "Ahmedabad";
+    private static final String DEFAULT_CITY = "Ahmedabad";
     private static final String DATA_SOURCE = "MODIS LST";
 
-    @Cacheable("uhi-summary")
+    // Legacy method for backward compatibility
     public UhiHeatmapSummary getSummary() {
-        long total = uhiHeatmapRepository.count();
-        long anomalyCount = uhiHeatmapRepository.countByIsAnomalyTrue();
-        Double meanLst = uhiHeatmapRepository.findCityMeanLst();
-        Double maxLst = uhiHeatmapRepository.findCityMaxLst();
-        Double minLst = uhiHeatmapRepository.findCityMinLst();
+        return getSummary(DEFAULT_CITY);
+    }
 
-        long criticalCount = uhiHeatmapRepository.countBySeverity("critical");
-        long highCount = uhiHeatmapRepository.countBySeverity("high");
-        long moderateCount = uhiHeatmapRepository.countBySeverity("moderate");
+    @Cacheable(value = "uhi-summary", key = "#city")
+    public UhiHeatmapSummary getSummary(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+
+        long total = uhiHeatmapRepository.countByCity(targetCity);
+        long anomalyCount = uhiHeatmapRepository.countByCityAndIsAnomalyTrue(targetCity);
+        Double meanLst = uhiHeatmapRepository.findCityMeanLst(targetCity);
+        Double maxLst = uhiHeatmapRepository.findCityMaxLst(targetCity);
+        Double minLst = uhiHeatmapRepository.findCityMinLst(targetCity);
+
+        long criticalCount = uhiHeatmapRepository.countByCityAndSeverity(targetCity, "critical");
+        long highCount = uhiHeatmapRepository.countByCityAndSeverity(targetCity, "high");
+        long moderateCount = uhiHeatmapRepository.countByCityAndSeverity(targetCity, "moderate");
 
         return UhiHeatmapSummary.builder()
                 .totalPoints((int) total)
@@ -52,20 +59,32 @@ public class UhiService {
                 .highCount((int) highCount)
                 .moderateCount((int) moderateCount)
                 .dataSource(DATA_SOURCE)
-                .city(CITY)
+                .city(targetCity)
                 .build();
     }
 
-    @Cacheable("uhi-heatmap")
+    // Legacy method
     public List<UhiHeatmapPoint> getHeatmap() {
-        return uhiHeatmapRepository.findAll().stream()
+        return getHeatmap(DEFAULT_CITY);
+    }
+
+    @Cacheable(value = "uhi-heatmap", key = "#city")
+    public List<UhiHeatmapPoint> getHeatmap(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        return uhiHeatmapRepository.findByCity(targetCity).stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
 
-    @Cacheable("uhi-hotspots")
+    // Legacy method
     public List<UhiHotspot> getHotspots() {
-        return uhiHotspotRepository.findAllByOrderByAvgLstCelsiusDesc().stream()
+        return getHotspots(DEFAULT_CITY);
+    }
+
+    @Cacheable(value = "uhi-hotspots", key = "#city")
+    public List<UhiHotspot> getHotspots(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        return uhiHotspotRepository.findByCityOrderByAvgLstCelsiusDesc(targetCity).stream()
                 .map(this::hotspotEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -76,24 +95,42 @@ public class UhiService {
                 .orElse(null);
     }
 
+    // Legacy method
     public List<UhiHeatmapPoint> getAnomalies() {
-        return uhiHeatmapRepository.findByIsAnomalyTrue().stream()
+        return getAnomalies(DEFAULT_CITY);
+    }
+
+    public List<UhiHeatmapPoint> getAnomalies(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        return uhiHeatmapRepository.findByCityAndIsAnomalyTrue(targetCity).stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
 
+    // Legacy method
     public GrokSummaryResponse getAiSummary() {
-        UhiHeatmapSummary summary = getSummary();
-        List<UhiHotspot> hotspots = getHotspots();
-        String prompt = grokLLMService.buildUhiPrompt(CITY, summary, hotspots);
-        return grokLLMService.getSummary("uhi", prompt);
+        return getAiSummary(DEFAULT_CITY);
     }
 
+    public GrokSummaryResponse getAiSummary(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        UhiHeatmapSummary summary = getSummary(targetCity);
+        List<UhiHotspot> hotspots = getHotspots(targetCity);
+        String prompt = grokLLMService.buildUhiPrompt(targetCity, summary, hotspots);
+        return grokLLMService.getSummary("uhi", targetCity, prompt);
+    }
+
+    // Legacy method
     public GrokSummaryResponse regenerateAiSummary() {
-        UhiHeatmapSummary summary = getSummary();
-        List<UhiHotspot> hotspots = getHotspots();
-        String prompt = grokLLMService.buildUhiPrompt(CITY, summary, hotspots);
-        return grokLLMService.regenerateSummary("uhi", prompt);
+        return regenerateAiSummary(DEFAULT_CITY);
+    }
+
+    public GrokSummaryResponse regenerateAiSummary(String city) {
+        String targetCity = city != null ? city : DEFAULT_CITY;
+        UhiHeatmapSummary summary = getSummary(targetCity);
+        List<UhiHotspot> hotspots = getHotspots(targetCity);
+        String prompt = grokLLMService.buildUhiPrompt(targetCity, summary, hotspots);
+        return grokLLMService.regenerateSummary("uhi", targetCity, prompt);
     }
 
     private UhiHeatmapPoint entityToDto(UhiHeatmapPointEntity entity) {

@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "forecast_steps", indexes = {
-        @Index(name = "idx_forecast_type", columnList = "step_type")
+        @Index(name = "idx_forecast_type", columnList = "step_type"),
+        @Index(name = "idx_forecast_city", columnList = "city")
 })
 @Data
 @Builder
@@ -22,6 +23,10 @@ public class ForecastStepEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "city", length = 50, nullable = false)
+    @Builder.Default
+    private String city = "Ahmedabad";
 
     @Column(name = "step")
     private Integer step;

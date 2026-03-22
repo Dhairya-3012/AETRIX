@@ -17,10 +17,12 @@ import KpiCard from '../components/KpiCard';
 import AlertStrip from '../components/AlertStrip';
 import AiSummaryCard from '../components/AiSummaryCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useCity } from '../context/CityContext';
 import pollutionService from '../services/pollutionService';
 import { formatNumber, formatPercent } from '../utils/formatters';
 
 const PollutionPage = () => {
+  const { selectedCity, cityInfo } = useCity();
   const [summary, setSummary] = useState(null);
   const [hotspots, setHotspots] = useState([]);
   const [outliers, setOutliers] = useState([]);
@@ -31,9 +33,9 @@ const PollutionPage = () => {
       setLoading(true);
       try {
         const [summaryRes, hotspotsRes, outliersRes] = await Promise.all([
-          pollutionService.getSummary(),
-          pollutionService.getHotspots(),
-          pollutionService.getOutliers(),
+          pollutionService.getSummary(selectedCity),
+          pollutionService.getHotspots(selectedCity),
+          pollutionService.getOutliers(selectedCity),
         ]);
 
         if (summaryRes?.success) setSummary(summaryRes.data);
@@ -47,12 +49,12 @@ const PollutionPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedCity]);
 
   if (loading) {
     return (
       <div className="page-container">
-        <Header title="Pollution Risk Analysis" />
+        <Header title="Pollution Risk Analysis" city={selectedCity} state={cityInfo.state} />
         <LoadingSpinner />
       </div>
     );
@@ -73,8 +75,9 @@ const PollutionPage = () => {
     <div className="page-container">
       <Header
         title="Pollution Risk Analysis"
-        subtitle={`AETRIX — India Environmental Intelligence | ${summary?.city || 'Ahmedabad'}`}
-        city={summary?.city}
+        subtitle={`AETRIX — India Environmental Intelligence | ${selectedCity}`}
+        city={selectedCity}
+        state={cityInfo.state}
       />
 
       {summary?.criticalCount > 0 && (
@@ -281,8 +284,8 @@ const PollutionPage = () => {
         <AiSummaryCard
           title="AI Pollution Analysis"
           featureKey="pollution"
-          fetchSummary={pollutionService.getAiSummary}
-          regenerateSummary={pollutionService.regenerateAiSummary}
+          fetchSummary={() => pollutionService.getAiSummary(selectedCity)}
+          regenerateSummary={() => pollutionService.regenerateAiSummary(selectedCity)}
         />
       </div>
     </div>

@@ -1,0 +1,19 @@
+{
+  "total_critical_alerts": 1,
+  "threshold_used": 0.0326,
+  "city_mean_ndvi": 0.1994,
+  "z_score_threshold": -2.0,
+  "alerts": [
+    {
+      "id": "2023_12_27_115_0",
+      "lat": 19.191993,
+      "lng": 72.783737,
+      "NDVI_Sentinel": -0.0618,
+      "z_score": -3.13,
+      "severity": "Critical",
+      "message": "NDVI 3.1 std below city mean \u2014 urgent intervention needed"
+    }
+  ],
+  "city": "Mumbai",
+  "state": "Maharashtra"
+}

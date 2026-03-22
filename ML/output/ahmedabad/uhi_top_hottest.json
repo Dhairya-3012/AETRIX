@@ -1,0 +1,128 @@
+{
+  "city": "Ahmedabad",
+  "city_mean_lst_celsius": 33.96,
+  "total_ranked": 10,
+  "ranking": [
+    {
+      "rank": 1,
+      "id": "2023_12_27_112_0",
+      "lat": 22.91518,
+      "lng": 72.577678,
+      "lst_celsius": 29.11,
+      "lst_raw": 15113,
+      "deviation_from_mean": "-4.85\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.2056,
+      "soil_moisture": 0.1474
+    },
+    {
+      "rank": 2,
+      "id": "2023_12_27_138_0",
+      "lat": 22.978133,
+      "lng": 72.591911,
+      "lst_celsius": 28.57,
+      "lst_raw": 15086,
+      "deviation_from_mean": "-5.39\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.0628,
+      "soil_moisture": 0.1474
+    },
+    {
+      "rank": 3,
+      "id": "2023_12_27_32_0",
+      "lat": 22.91518,
+      "lng": 72.489804,
+      "lst_celsius": 28.23,
+      "lst_raw": 15069,
+      "deviation_from_mean": "-5.73\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.2252,
+      "soil_moisture": 0.1468
+    },
+    {
+      "rank": 4,
+      "id": "2023_12_27_107_0",
+      "lat": 22.933167,
+      "lng": 72.587314,
+      "lst_celsius": 28.13,
+      "lst_raw": 15064,
+      "deviation_from_mean": "-5.83\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.1911,
+      "soil_moisture": 0.1474
+    },
+    {
+      "rank": 5,
+      "id": "2023_12_27_56_0",
+      "lat": 22.94216,
+      "lng": 72.484713,
+      "lst_celsius": 28.11,
+      "lst_raw": 15063,
+      "deviation_from_mean": "-5.85\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.2257,
+      "soil_moisture": 0.1468
+    },
+    {
+      "rank": 6,
+      "id": "2023_12_27_75_0",
+      "lat": 22.91518,
+      "lng": 72.480041,
+      "lst_celsius": 28.09,
+      "lst_raw": 15062,
+      "deviation_from_mean": "-5.87\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.3057,
+      "soil_moisture": 0.1468
+    },
+    {
+      "rank": 7,
+      "id": "2023_12_27_54_0",
+      "lat": 22.960146,
+      "lng": 72.621321,
+      "lst_celsius": 27.99,
+      "lst_raw": 15057,
+      "deviation_from_mean": "-5.97\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.1485,
+      "soil_moisture": 0.1474
+    },
+    {
+      "rank": 8,
+      "id": "2023_12_27_44_0",
+      "lat": 23.068065,
+      "lng": 72.395976,
+      "lst_celsius": 27.95,
+      "lst_raw": 15055,
+      "deviation_from_mean": "-6.01\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.2937,
+      "soil_moisture": 0.1475
+    },
+    {
+      "rank": 9,
+      "id": "2023_12_27_116_0",
+      "lat": 22.906187,
+      "lng": 72.475233,
+      "lst_celsius": 27.91,
+      "lst_raw": 15053,
+      "deviation_from_mean": "-6.05\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.3259,
+      "soil_moisture": 0.1468
+    },
+    {
+      "rank": 10,
+      "id": "2023_12_27_68_0",
+      "lat": 23.041085,
+      "lng": 72.674654,
+      "lst_celsius": 27.89,
+      "lst_raw": 15052,
+      "deviation_from_mean": "-6.07\u00b0C",
+      "alert_level": "Low",
+      "ndvi": 0.1232,
+      "soil_moisture": 0.1484
+    }
+  ],
+  "state": "Gujarat"
+}
