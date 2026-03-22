@@ -1,15 +1,15 @@
 {
   "city": "Ahmedabad",
-  "generated_at": "2026-03-21T19:18:19.239123",
+  "generated_at": "2026-03-22T05:56:27.305079",
   "satellite_sources": [
     "MODIS LST",
     "Sentinel-2 NDVI",
     "Landsat NDVI",
     "SMAP Soil Moisture"
   ],
-  "total_actions": 9,
+  "total_actions": 3,
   "summary": {
-    "high_priority": 7,
+    "high_priority": 1,
     "medium_priority": 2,
     "low_priority": 0
   },
@@ -17,58 +17,14 @@
     {
       "action_id": 1,
       "priority": "High",
-      "priority_score": 100,
-      "title": "PCB inspection of Narol Industrial Cluster",
-      "description": "55 locations show simultaneous high temperature, bare land, and dry soil \u2014 environmental signature of active industrial pollution. Immediate on-site inspection required.",
-      "location": {
-        "zone_name": "Narol Industrial Cluster",
-        "center_lat": 23.027006,
-        "center_lng": 72.592776,
-        "affected_points": 55
-      },
-      "triggered_by": {
-        "model": "Isolation Forest + Risk Score",
-        "finding": "Risk score 62.8/100 \u2014 extreme environmental stress",
-        "satellite": "MODIS LST + Sentinel-2 NDVI + SMAP"
-      },
-      "responsible_dept": "Pollution Control Board",
-      "deadline": "Within 7 days",
-      "estimated_impact": "Prevent further land degradation in 55 flagged locations",
-      "status": "Pending"
-    },
-    {
-      "action_id": 2,
-      "priority": "High",
-      "priority_score": 86.4,
-      "title": "Emergency tree plantation in South Ahmedabad Residential Zone",
-      "description": "4 locations show critically high LST (avg 35.61\u00b0C) combined with NDVI below 0.08. Immediate plantation of minimum 120 trees required.",
-      "location": {
-        "zone_name": "South Ahmedabad Residential Zone",
-        "center_lat": 22.94971,
-        "center_lng": 72.563663,
-        "affected_points": 4
-      },
-      "triggered_by": {
-        "model": "Isolation Forest + DBSCAN",
-        "finding": "LST anomaly, avg 35.61\u00b0C",
-        "satellite": "MODIS LST + Sentinel-2"
-      },
-      "responsible_dept": "Parks Department + PWD",
-      "deadline": "Within 30 days",
-      "estimated_impact": "Could reduce LST by 1.5-2\u00b0C in affected zone",
-      "status": "Pending"
-    },
-    {
-      "action_id": 3,
-      "priority": "High",
-      "priority_score": 82.8,
+      "priority_score": 80.4,
       "title": "Soil moisture recharge programme in Low moisture zones",
-      "description": "94 locations show soil moisture below 0.146 \u2014 the lowest quartile for Ahmedabad. Groundwater recharge pits and rainwater harvesting structures recommended.",
+      "description": "35 locations show soil moisture below 0.146 \u2014 the lowest quartile for Ahmedabad. Groundwater recharge pits and rainwater harvesting structures recommended.",
       "location": {
         "zone_name": "Low moisture zones",
         "center_lat": null,
         "center_lng": null,
-        "affected_points": 94
+        "affected_points": 35
       },
       "triggered_by": {
         "model": "Z-score + Feature Importance",
@@ -81,119 +37,9 @@
       "status": "Pending"
     },
     {
-      "action_id": 4,
-      "priority": "High",
-      "priority_score": 82.2,
-      "title": "PCB inspection of Naroda Industrial Cluster",
-      "description": "4 locations show simultaneous high temperature, bare land, and dry soil \u2014 environmental signature of active industrial pollution. Immediate on-site inspection required.",
-      "location": {
-        "zone_name": "Naroda Industrial Cluster",
-        "center_lat": 23.091194,
-        "center_lng": 72.669215,
-        "affected_points": 4
-      },
-      "triggered_by": {
-        "model": "Isolation Forest + Risk Score",
-        "finding": "Risk score 66.6/100 \u2014 extreme environmental stress",
-        "satellite": "MODIS LST + Sentinel-2 NDVI + SMAP"
-      },
-      "responsible_dept": "Pollution Control Board",
-      "deadline": "Within 7 days",
-      "estimated_impact": "Prevent further land degradation in 4 flagged locations",
-      "status": "Pending"
-    },
-    {
-      "action_id": 5,
-      "priority": "High",
-      "priority_score": 82.2,
-      "title": "PCB inspection of Odhav Commercial Zone",
-      "description": "4 locations show simultaneous high temperature, bare land, and dry soil \u2014 environmental signature of active industrial pollution. Immediate on-site inspection required.",
-      "location": {
-        "zone_name": "Odhav Commercial Zone",
-        "center_lat": 23.028312,
-        "center_lng": 72.675952,
-        "affected_points": 4
-      },
-      "triggered_by": {
-        "model": "Isolation Forest + Risk Score",
-        "finding": "Risk score 62.2/100 \u2014 extreme environmental stress",
-        "satellite": "MODIS LST + Sentinel-2 NDVI + SMAP"
-      },
-      "responsible_dept": "Pollution Control Board",
-      "deadline": "Within 7 days",
-      "estimated_impact": "Prevent further land degradation in 4 flagged locations",
-      "status": "Pending"
-    },
-    {
-      "action_id": 6,
-      "priority": "High",
-      "priority_score": 82.2,
-      "title": "PCB inspection of Chandkheda Warehouse District",
-      "description": "4 locations show simultaneous high temperature, bare land, and dry soil \u2014 environmental signature of active industrial pollution. Immediate on-site inspection required.",
-      "location": {
-        "zone_name": "Chandkheda Warehouse District",
-        "center_lat": 23.109161,
-        "center_lng": 72.491798,
-        "affected_points": 4
-      },
-      "triggered_by": {
-        "model": "Isolation Forest + Risk Score",
-        "finding": "Risk score 61.4/100 \u2014 extreme environmental stress",
-        "satellite": "MODIS LST + Sentinel-2 NDVI + SMAP"
-      },
-      "responsible_dept": "Pollution Control Board",
-      "deadline": "Within 7 days",
-      "estimated_impact": "Prevent further land degradation in 4 flagged locations",
-      "status": "Pending"
-    },
-    {
-      "action_id": 7,
-      "priority": "High",
-      "priority_score": 82.2,
-      "title": "PCB inspection of Chandkheda Mixed Industrial",
-      "description": "4 locations show simultaneous high temperature, bare land, and dry soil \u2014 environmental signature of active industrial pollution. Immediate on-site inspection required.",
-      "location": {
-        "zone_name": "Chandkheda Mixed Industrial",
-        "center_lat": 23.185517,
-        "center_lng": 72.572646,
-        "affected_points": 4
-      },
-      "triggered_by": {
-        "model": "Isolation Forest + Risk Score",
-        "finding": "Risk score 60.3/100 \u2014 extreme environmental stress",
-        "satellite": "MODIS LST + Sentinel-2 NDVI + SMAP"
-      },
-      "responsible_dept": "Pollution Control Board",
-      "deadline": "Within 7 days",
-      "estimated_impact": "Prevent further land degradation in 4 flagged locations",
-      "status": "Pending"
-    },
-    {
-      "action_id": 8,
+      "action_id": 2,
       "priority": "Medium",
-      "priority_score": 57.6,
-      "title": "Monthly satellite monitoring protocol for vegetation recovery",
-      "description": "86.0% of Ahmedabad shows stressed or barren vegetation. A monthly NDVI monitoring protocol using Sentinel-2 data will track recovery after interventions.",
-      "location": {
-        "zone_name": "City-wide",
-        "center_lat": null,
-        "center_lng": null,
-        "affected_points": 400
-      },
-      "triggered_by": {
-        "model": "RF Classifier Summary",
-        "finding": "86.0% stressed/barren classification",
-        "satellite": "Sentinel-2 NDVI"
-      },
-      "responsible_dept": "Environmental Monitoring Cell",
-      "deadline": "Ongoing \u2014 start within 30 days",
-      "estimated_impact": "Track intervention effectiveness over time",
-      "status": "Pending"
-    },
-    {
-      "action_id": 9,
-      "priority": "Medium",
-      "priority_score": 56.4,
+      "priority_score": 64.9,
       "title": "Cool roof mandate for top hottest ward locations",
       "description": "10 locations with LST above 36.5\u00b0C in dense urban areas where tree plantation is not feasible. Cool roof coating mandate recommended for all new constructions.",
       "location": {
@@ -210,6 +56,28 @@
       "responsible_dept": "Municipal Corporation \u2014 Building Permits",
       "deadline": "Policy within 90 days",
       "estimated_impact": "Reduce indoor temperatures and surface heat",
+      "status": "Pending"
+    },
+    {
+      "action_id": 3,
+      "priority": "Medium",
+      "priority_score": 55.2,
+      "title": "Monthly satellite monitoring protocol for vegetation recovery",
+      "description": "85.9% of Ahmedabad shows stressed or barren vegetation. A monthly NDVI monitoring protocol using Sentinel-2 data will track recovery after interventions.",
+      "location": {
+        "zone_name": "City-wide",
+        "center_lat": null,
+        "center_lng": null,
+        "affected_points": 142
+      },
+      "triggered_by": {
+        "model": "RF Classifier Summary",
+        "finding": "85.9% stressed/barren classification",
+        "satellite": "Sentinel-2 NDVI"
+      },
+      "responsible_dept": "Environmental Monitoring Cell",
+      "deadline": "Ongoing \u2014 start within 30 days",
+      "estimated_impact": "Track intervention effectiveness over time",
       "status": "Pending"
     }
   ]

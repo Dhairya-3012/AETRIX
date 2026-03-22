@@ -425,13 +425,13 @@ class ModelAccuracyReporter:
         print(f"\nReport saved to: {filepath}")
 
 
-def get_model_accuracy(csv_path: str = "Ahmedabad_MultiSatellite_Data.csv") -> Dict[str, Any]:
+def get_model_accuracy(csv_path: str = "Ahmedabad_TimeSeries_Final.csv") -> Dict[str, Any]:
     """
     Quick function to get all model accuracy metrics.
 
     Usage:
         from ml_models import get_model_accuracy
-        metrics = get_model_accuracy("Ahmedabad_MultiSatellite_Data.csv")
+        metrics = get_model_accuracy("Ahmedabad_TimeSeries_Final.csv")
     """
     reporter = ModelAccuracyReporter(csv_path)
     metrics = reporter.train_and_evaluate_all()

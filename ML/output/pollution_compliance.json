@@ -1,47 +1,6 @@
 {
-  "report_date": "2026-03-21",
+  "report_date": "2026-03-22",
   "city": "Ahmedabad",
-  "total_non_compliant_zones": 5,
-  "zones": [
-    {
-      "zone_name": "Naroda Industrial Cluster",
-      "risk_score": 66.6,
-      "compliance_status": "Needs Review",
-      "satellite_evidence": "LST 35.0\u00b0C + NDVI 0.13 + Soil moisture 0.147",
-      "action_required": "Monthly monitoring required",
-      "deadline": "Within 30 days"
-    },
-    {
-      "zone_name": "Narol Industrial Cluster",
-      "risk_score": 62.8,
-      "compliance_status": "Needs Review",
-      "satellite_evidence": "LST 34.5\u00b0C + NDVI 0.12 + Soil moisture 0.147",
-      "action_required": "Monthly monitoring required",
-      "deadline": "Within 30 days"
-    },
-    {
-      "zone_name": "Odhav Commercial Zone",
-      "risk_score": 62.2,
-      "compliance_status": "Needs Review",
-      "satellite_evidence": "LST 35.2\u00b0C + NDVI 0.13 + Soil moisture 0.148",
-      "action_required": "Monthly monitoring required",
-      "deadline": "Within 30 days"
-    },
-    {
-      "zone_name": "Chandkheda Warehouse District",
-      "risk_score": 61.4,
-      "compliance_status": "Needs Review",
-      "satellite_evidence": "LST 35.5\u00b0C + NDVI 0.17 + Soil moisture 0.148",
-      "action_required": "Monthly monitoring required",
-      "deadline": "Within 30 days"
-    },
-    {
-      "zone_name": "Chandkheda Mixed Industrial",
-      "risk_score": 60.3,
-      "compliance_status": "Needs Review",
-      "satellite_evidence": "LST 34.4\u00b0C + NDVI 0.19 + Soil moisture 0.146",
-      "action_required": "Monthly monitoring required",
-      "deadline": "Within 30 days"
-    }
-  ]
+  "total_non_compliant_zones": 0,
+  "zones": []
 }

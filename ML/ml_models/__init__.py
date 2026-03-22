@@ -24,11 +24,11 @@ Usage:
     )
 
     # Train individual models
-    uhi = UHIDetectionModel("Ahmedabad_MultiSatellite_Data.csv")
+    uhi = UHIDetectionModel("Ahmedabad_TimeSeries_Final.csv")
     uhi.train_all_models()
 
     # Get accuracy metrics
-    metrics = get_model_accuracy("Ahmedabad_MultiSatellite_Data.csv")
+    metrics = get_model_accuracy("Ahmedabad_TimeSeries_Final.csv")
 """
 
 __version__ = "1.0.0"

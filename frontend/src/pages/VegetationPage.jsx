@@ -68,6 +68,14 @@ const VegetationPage = () => {
   const hasHealthData = healthDistribution.length > 0;
   const hasAlertData = alerts.length > 0;
 
+  // Transform alerts for bar chart - use absolute z-score for visualization
+  // Handle both 'zScore' and 'zscore' field names (backend may use either)
+  const alertChartData = alerts.slice(0, 10).map(alert => ({
+    ...alert,
+    absZScore: Math.abs(alert.zScore ?? alert.zscore ?? 0),
+    displayId: alert.pointId?.substring(0, 8) || alert.id?.toString().substring(0, 8) || 'N/A'
+  }));
+
   return (
     <div className="page-container">
       <Header
@@ -160,21 +168,26 @@ const VegetationPage = () => {
           <div className="card">
             <div className="card-header">
               <h3 className="card-title">Stress Alerts by Z-Score</h3>
+              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                Deviation below city mean (higher = more stressed)
+              </span>
             </div>
             {hasAlertData ? (
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={alerts.slice(0, 10)}>
+                <BarChart data={alertChartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                  <XAxis dataKey="pointId" stroke="var(--text-muted)" tick={{ fontSize: 10 }} />
-                  <YAxis stroke="var(--text-muted)" />
+                  <XAxis dataKey="displayId" stroke="var(--text-muted)" tick={{ fontSize: 10 }} />
+                  <YAxis stroke="var(--text-muted)" domain={[0, 'auto']} />
                   <Tooltip
                     contentStyle={{
                       background: 'var(--bg-card)',
                       border: '1px solid var(--border)',
                       borderRadius: '8px',
                     }}
+                    formatter={(value, name) => [`${value.toFixed(2)} std`, 'Deviation']}
+                    labelFormatter={(label) => `Point: ${label}`}
                   />
-                  <Bar dataKey="zScore" fill="#FFD700" name="Z-Score" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="absZScore" fill="#FFD700" name="Z-Score Magnitude" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
@@ -211,7 +224,7 @@ const VegetationPage = () => {
                   <td style={{ fontWeight: 500 }}>{alert.pointId}</td>
                   <td>{`${alert.lat?.toFixed(4)}, ${alert.lng?.toFixed(4)}`}</td>
                   <td>{formatNumber(alert.ndviSentinel, 3)}</td>
-                  <td>{formatNumber(alert.zScore, 2)}</td>
+                  <td>{formatNumber(alert.zScore ?? alert.zscore, 2)}</td>
                   <td>
                     <span className={`badge badge-${alert.severity?.toLowerCase()}`}>
                       {alert.severity}

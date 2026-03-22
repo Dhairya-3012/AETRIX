@@ -110,6 +110,8 @@ class VegetationStressModel:
         # City statistics
         self.city_mean_ndvi: float = 0.0
         self.city_std_ndvi: float = 0.0
+        self.historical_ndvi_min: float = 0.0
+        self.historical_ndvi_max: float = 1.0
         self.z_score_threshold: float = -2.0  # 2 std below mean
 
         # Health thresholds
@@ -130,7 +132,7 @@ class VegetationStressModel:
         """Load and preprocess the CSV data."""
         self.df = pd.read_csv(self.csv_path)
 
-        # Parse geo coordinates
+        # Parse geo coordinates first (needed for all data)
         self.df['lat'] = self.df['.geo'].apply(self._extract_lat)
         self.df['lng'] = self.df['.geo'].apply(self._extract_lng)
 
@@ -140,29 +142,40 @@ class VegetationStressModel:
         # Rename NDVI column for clarity
         self.df['NDVI_MODIS'] = self.df['NDVI']
 
-        # Calculate city statistics for NDVI_Sentinel
+        # Calculate city statistics from FULL historical data (before filtering)
+        # This ensures z-scores are meaningful against historical baseline
         self.city_mean_ndvi = self.df['NDVI_Sentinel'].mean()
         self.city_std_ndvi = self.df['NDVI_Sentinel'].std()
+
+        # Also store historical min/max for proper normalization
+        self.historical_ndvi_min = self.df['NDVI_Sentinel'].min()
+        self.historical_ndvi_max = self.df['NDVI_Sentinel'].max()
+
+        # If time series data, filter to latest date AFTER calculating historical stats
+        if 'date' in self.df.columns:
+            latest_date = self.df['date'].max()
+            total_dates = self.df['date'].nunique()
+            self.df = self.df[self.df['date'] == latest_date].copy()
+            print(f"Time series detected — using latest date: {latest_date} ({len(self.df)} points)")
+            print(f"Historical baseline: {total_dates} dates, mean NDVI: {self.city_mean_ndvi:.3f} (±{self.city_std_ndvi:.3f})")
 
         # Assign health labels based on NDVI thresholds
         self.df['health_label'] = self.df['NDVI_Sentinel'].apply(self._classify_health)
 
-        # Calculate Z-scores for NDVI
+        # Calculate Z-scores against HISTORICAL baseline (not just current date)
         self.df['ndvi_z_score'] = (self.df['NDVI_Sentinel'] - self.city_mean_ndvi) / self.city_std_ndvi
 
-        # Assign health scores (0-1 normalized)
-        ndvi_min = self.df['NDVI_Sentinel'].min()
-        ndvi_max = self.df['NDVI_Sentinel'].max()
-        self.df['health_score'] = (self.df['NDVI_Sentinel'] - ndvi_min) / (ndvi_max - ndvi_min)
+        # Assign health scores using HISTORICAL min/max for proper normalization
+        self.df['health_score'] = (self.df['NDVI_Sentinel'] - self.historical_ndvi_min) / \
+                                   (self.historical_ndvi_max - self.historical_ndvi_min)
 
         # Assign colors
         self.df['color_hex'] = self.df['health_label'].map(self.health_colors)
 
         self.processed_df = self.df.copy()
 
-        print(f"Loaded {len(self.df)} data points")
-        print(f"NDVI Range: {self.df['NDVI_Sentinel'].min():.3f} to {self.df['NDVI_Sentinel'].max():.3f}")
-        print(f"City Mean NDVI: {self.city_mean_ndvi:.3f} (±{self.city_std_ndvi:.3f})")
+        print(f"Analyzing {len(self.df)} data points")
+        print(f"Current NDVI Range: {self.df['NDVI_Sentinel'].min():.3f} to {self.df['NDVI_Sentinel'].max():.3f}")
 
         return self.processed_df
 
@@ -589,7 +602,7 @@ class VegetationStressModel:
 # ============================================================================
 
 if __name__ == "__main__":
-    csv_path = "Ahmedabad_MultiSatellite_Data.csv"
+    csv_path = "Ahmedabad_TimeSeries_Final.csv"
 
     model = VegetationStressModel(csv_path)
     summary = model.train_all_models()

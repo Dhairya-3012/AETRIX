@@ -86,7 +86,7 @@ router = APIRouter(prefix="/api", tags=["Environmental Analysis"])
 @router.post("/initialize")
 async def initialize_all_models(
     csv_path: str = Query(
-        default="Ahmedabad_MultiSatellite_Data.csv",
+        default="Ahmedabad_TimeSeries_Final.csv",
         description="Path to satellite data CSV"
     )
 ):

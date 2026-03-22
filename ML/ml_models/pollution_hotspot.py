@@ -117,6 +117,14 @@ class PollutionHotspotModel:
         # City statistics
         self.city_mean_risk: float = 0.0
 
+        # Historical baselines for normalization
+        self.historical_lst_min: float = 0.0
+        self.historical_lst_max: float = 50.0
+        self.historical_ndvi_min: float = 0.0
+        self.historical_ndvi_max: float = 1.0
+        self.historical_sm_min: float = 0.0
+        self.historical_sm_max: float = 1.0
+
         # Hotspot zones
         self.hotspot_zones: List[PollutionHotspot] = []
 
@@ -142,9 +150,26 @@ class PollutionHotspotModel:
         # Clean data
         self.df = self.df.dropna(subset=['lst_celsius', 'NDVI_Sentinel', 'sm_surface', 'lat', 'lng'])
 
+        # Store historical min/max for normalization BEFORE filtering
+        # This ensures risk scores are comparable across time
+        self.historical_lst_min = self.df['lst_celsius'].min()
+        self.historical_lst_max = self.df['lst_celsius'].max()
+        self.historical_ndvi_min = self.df['NDVI_Sentinel'].min()
+        self.historical_ndvi_max = self.df['NDVI_Sentinel'].max()
+        self.historical_sm_min = self.df['sm_surface'].min()
+        self.historical_sm_max = self.df['sm_surface'].max()
+
+        # If time series data, filter to latest date AFTER calculating historical stats
+        if 'date' in self.df.columns:
+            latest_date = self.df['date'].max()
+            total_dates = self.df['date'].nunique()
+            self.df = self.df[self.df['date'] == latest_date].copy()
+            print(f"Time series detected — using latest date: {latest_date} ({len(self.df)} points)")
+            print(f"Historical baseline: {total_dates} dates used for normalization")
+
         self.processed_df = self.df.copy()
 
-        print(f"Loaded {len(self.df)} data points")
+        print(f"Analyzing {len(self.df)} data points")
 
         return self.processed_df
 
@@ -181,14 +206,18 @@ class PollutionHotspotModel:
         if self.processed_df is None:
             raise ValueError("Data not loaded.")
 
-        # Normalize features to 0-1 range
-        lst_min, lst_max = self.processed_df['lst_celsius'].min(), self.processed_df['lst_celsius'].max()
-        ndvi_min, ndvi_max = self.processed_df['NDVI_Sentinel'].min(), self.processed_df['NDVI_Sentinel'].max()
-        sm_min, sm_max = self.processed_df['sm_surface'].min(), self.processed_df['sm_surface'].max()
+        # Normalize features to 0-1 range using HISTORICAL min/max for consistent comparison
+        lst_norm = (self.processed_df['lst_celsius'] - self.historical_lst_min) / \
+                   (self.historical_lst_max - self.historical_lst_min)
+        ndvi_norm = (self.processed_df['NDVI_Sentinel'] - self.historical_ndvi_min) / \
+                    (self.historical_ndvi_max - self.historical_ndvi_min)
+        sm_norm = (self.processed_df['sm_surface'] - self.historical_sm_min) / \
+                  (self.historical_sm_max - self.historical_sm_min)
 
-        lst_norm = (self.processed_df['lst_celsius'] - lst_min) / (lst_max - lst_min)
-        ndvi_norm = (self.processed_df['NDVI_Sentinel'] - ndvi_min) / (ndvi_max - ndvi_min)
-        sm_norm = (self.processed_df['sm_surface'] - sm_min) / (sm_max - sm_min)
+        # Clip to 0-1 range in case current values exceed historical range
+        lst_norm = lst_norm.clip(0, 1)
+        ndvi_norm = ndvi_norm.clip(0, 1)
+        sm_norm = sm_norm.clip(0, 1)
 
         # Calculate risk score (0-100)
         self.processed_df['risk_score'] = (
@@ -280,7 +309,7 @@ class PollutionHotspotModel:
     # STEP 3: DBSCAN for Hotspot Clustering
     # ========================================================================
 
-    def fit_dbscan(self, eps_km: float = 2.5, min_samples: int = 3) -> List[PollutionHotspot]:
+    def fit_dbscan(self, eps_km: float = 5.0, min_samples: int = 2) -> List[PollutionHotspot]:
         """
         Cluster high-risk points into named pollution zones.
         """
@@ -635,7 +664,7 @@ class PollutionHotspotModel:
 # ============================================================================
 
 if __name__ == "__main__":
-    csv_path = "Ahmedabad_MultiSatellite_Data.csv"
+    csv_path = "Ahmedabad_TimeSeries_Final.csv"
 
     model = PollutionHotspotModel(csv_path)
     summary = model.train_all_models()

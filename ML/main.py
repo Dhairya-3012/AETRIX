@@ -14,10 +14,17 @@ import json
 import os
 import sys
 
+# Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv not installed, use system env vars
+
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 
-def run_full_analysis(csv_path: str = "Ahmedabad_MultiSatellite_Data.csv"):
+def run_full_analysis(csv_path: str = "Ahmedabad_TimeSeries_Final.csv"):
     """Run complete environmental analysis."""
     from ml_models import (
         UHIDetectionModel,
@@ -104,7 +111,7 @@ def run_full_analysis(csv_path: str = "Ahmedabad_MultiSatellite_Data.csv"):
     print("=" * 70)
 
 
-def run_accuracy_report(csv_path: str = "Ahmedabad_MultiSatellite_Data.csv"):
+def run_accuracy_report(csv_path: str = "Ahmedabad_TimeSeries_Final.csv"):
     """Run accuracy evaluation for all models."""
     from ml_models import get_model_accuracy
     metrics = get_model_accuracy(csv_path)
@@ -116,20 +123,26 @@ def run_api_server():
     try:
         import uvicorn
         from ml_models.api_endpoints import create_app
+
+        host = os.getenv("ML_API_HOST", "0.0.0.0")
+        port = int(os.getenv("ML_API_PORT", "8000"))
+
         app = create_app()
-        print("\nStarting API server at http://localhost:8000")
-        print("API Docs: http://localhost:8000/docs")
-        uvicorn.run(app, host="0.0.0.0", port=8000)
+        print(f"\nStarting API server at http://{host}:{port}")
+        print(f"API Docs: http://{host}:{port}/docs")
+        uvicorn.run(app, host=host, port=port)
     except ImportError:
         print("Error: Install fastapi and uvicorn first:")
         print("  pip install fastapi uvicorn")
 
 
 def main():
+    default_csv = os.getenv("CSV_DATA_PATH", "Ahmedabad_TimeSeries_Final.csv")
+
     parser = argparse.ArgumentParser(description="Environmental Analysis System")
     parser.add_argument("--accuracy", action="store_true", help="Run accuracy report only")
     parser.add_argument("--api", action="store_true", help="Start API server")
-    parser.add_argument("--csv", default="Ahmedabad_MultiSatellite_Data.csv", help="Path to CSV file")
+    parser.add_argument("--csv", default=default_csv, help="Path to CSV file")
 
     args = parser.parse_args()
 

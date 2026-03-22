@@ -1,27 +1,27 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
 
 spring:
   application:
     name: aetrix-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/aetrix_db
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:aetrix_db}
     username: ${POSTGRES_USER:aetrix_user}
     password: ${POSTGRES_PASSWORD:aetrix_pass}
     driver-class-name: org.postgresql.Driver
     hikari:
-      connection-timeout: 30000
-      maximum-pool-size: 10
-      minimum-idle: 2
+      connection-timeout: ${DB_CONNECTION_TIMEOUT:30000}
+      maximum-pool-size: ${DB_POOL_SIZE:10}
+      minimum-idle: ${DB_POOL_MIN_IDLE:2}
       idle-timeout: 600000
       pool-name: AetrixHikariPool
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
-    show-sql: false
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:false}
     properties:
       hibernate:
         format_sql: true
@@ -33,7 +33,7 @@ spring:
   cache:
     type: caffeine
     caffeine:
-      spec: maximumSize=200,expireAfterWrite=60m
+      spec: maximumSize=${CACHE_MAX_SIZE:200},expireAfterWrite=${CACHE_EXPIRE_MINUTES:60}m
 
   jackson:
     default-property-inclusion: non_null
@@ -44,15 +44,15 @@ spring:
 
 groq:
   api:
-    url: https://api.groq.com/openai/v1/chat/completions
-    key: ${GROQ_API_KEY}
-    model: llama-3.3-70b-versatile
-    max-tokens: 500
-    temperature: 0.3
-    timeout-seconds: 30
+    url: ${GROQ_API_URL:https://api.groq.com/openai/v1/chat/completions}
+    key: ${GROQ_API_KEY:}
+    model: ${GROQ_MODEL:llama-3.3-70b-versatile}
+    max-tokens: ${GROQ_MAX_TOKENS:500}
+    temperature: ${GROQ_TEMPERATURE:0.3}
+    timeout-seconds: ${GROQ_TIMEOUT_SECONDS:30}
 
 data:
-  output-path: classpath:data/
+  output-path: ${DATA_OUTPUT_PATH:classpath:data/}
 
 management:
   endpoints:
@@ -65,6 +65,9 @@ management:
 
 logging:
   level:
-    com.aetrix: DEBUG
-    org.hibernate.SQL: WARN
+    com.aetrix: ${LOG_LEVEL_APP:INFO}
+    org.hibernate.SQL: ${LOG_LEVEL_HIBERNATE:WARN}
     com.zaxxer.hikari: INFO
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:5173}

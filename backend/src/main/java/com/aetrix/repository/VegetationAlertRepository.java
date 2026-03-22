@@ -12,7 +12,7 @@ import java.util.List;
 public interface VegetationAlertRepository extends JpaRepository<VegetationAlertEntity, Long> {
     List<VegetationAlertEntity> findBySeverity(String severity);
 
-    @Query("SELECT v FROM VegetationAlertEntity v ORDER BY v.zScore DESC")
+    @Query("SELECT v FROM VegetationAlertEntity v ORDER BY v.zScore ASC")
     List<VegetationAlertEntity> findAllOrderByZScoreDesc();
 
     long countBySeverity(String severity);

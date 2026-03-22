@@ -168,17 +168,25 @@ class UHIDetectionModel:
         essential_cols = ['lst_celsius', 'NDVI_Sentinel', 'sm_surface', 'lat', 'lng']
         self.df = self.df.dropna(subset=essential_cols)
 
-        # Calculate city statistics
+        # Calculate city statistics from FULL historical data (before filtering)
+        # This ensures anomaly detection is meaningful against historical baseline
         self.city_mean_lst = self.df['lst_celsius'].mean()
         self.city_std_lst = self.df['lst_celsius'].std()
         self.city_max_lst = self.df['lst_celsius'].max()
         self.city_min_lst = self.df['lst_celsius'].min()
 
+        # If time series data, filter to latest date AFTER calculating historical stats
+        if 'date' in self.df.columns:
+            latest_date = self.df['date'].max()
+            total_dates = self.df['date'].nunique()
+            self.df = self.df[self.df['date'] == latest_date].copy()
+            print(f"Time series detected — using latest date: {latest_date} ({len(self.df)} points)")
+            print(f"Historical baseline: {total_dates} dates, mean LST: {self.city_mean_lst:.2f}°C (±{self.city_std_lst:.2f}°C)")
+
         self.processed_df = self.df.copy()
 
-        print(f"Loaded {len(self.df)} data points")
-        print(f"LST Range: {self.city_min_lst:.2f}°C to {self.city_max_lst:.2f}°C")
-        print(f"City Mean LST: {self.city_mean_lst:.2f}°C (±{self.city_std_lst:.2f}°C)")
+        print(f"Analyzing {len(self.df)} data points")
+        print(f"Current LST Range: {self.df['lst_celsius'].min():.2f}°C to {self.df['lst_celsius'].max():.2f}°C")
 
         return self.processed_df
 
@@ -765,8 +773,8 @@ class UHIDetectionModel:
 
     def train_all_models(self,
                          contamination: float = 0.15,
-                         dbscan_eps_km: float = 2.0,
-                         dbscan_min_samples: int = 3) -> Dict[str, Any]:
+                         dbscan_eps_km: float = 5.0,
+                         dbscan_min_samples: int = 2) -> Dict[str, Any]:
         """
         Train all models in sequence.
 
@@ -824,7 +832,7 @@ class UHIDetectionModel:
 
 if __name__ == "__main__":
     # Example usage
-    csv_path = "Ahmedabad_MultiSatellite_Data.csv"
+    csv_path = "Ahmedabad_TimeSeries_Final.csv"
 
     # Initialize model
     model = UHIDetectionModel(csv_path)

@@ -130,7 +130,14 @@ class TrendForecastModel:
         self.df['lst_celsius'] = (self.df['LST_Day_1km'] * 0.02) - 273.15
 
         # Create step index (treating system:index as time order)
-        self.df['step'] = range(len(self.df))
+        if 'date' in self.df.columns:
+            # Use real dates — group by date and take mean LST per date
+            self.df['date'] = pd.to_datetime(self.df['date'])
+            self.df = self.df.sort_values('date')
+            self.df['step'] = self.df.groupby('date').ngroup()
+            print(f"Time series: {self.df['date'].nunique()} unique dates from {self.df['date'].min().date()} to {self.df['date'].max().date()}")
+        else:
+            self.df['step'] = range(len(self.df))
 
         # Calculate statistics
         self.city_mean_lst = self.df['lst_celsius'].mean()
@@ -174,7 +181,11 @@ class TrendForecastModel:
             raise ValueError("Data not loaded.")
 
         # Get LST series
-        lst_series = self.processed_df['lst_celsius'].values
+        if 'date' in self.processed_df.columns:
+            # Average LST per date for a clean time series
+            lst_series = self.processed_df.groupby('step')['lst_celsius'].mean().values
+        else:
+            lst_series = self.processed_df['lst_celsius'].values
 
         if ARIMA_AVAILABLE:
             try:
@@ -583,7 +594,7 @@ class TrendForecastModel:
 # ============================================================================
 
 if __name__ == "__main__":
-    csv_path = "Ahmedabad_MultiSatellite_Data.csv"
+    csv_path = "Ahmedabad_TimeSeries_Final.csv"
 
     model = TrendForecastModel(csv_path)
     summary = model.train_all_models()

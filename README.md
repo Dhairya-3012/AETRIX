@@ -102,7 +102,13 @@ A comprehensive satellite-based environmental monitoring platform developed for 
 
 ```
 Aetrix/
+├── .env.example                # Root environment template
+├── .gitignore                  # Git ignore rules
+├── railway.json                # Railway deployment config
+├── README.md
+│
 ├── frontend/                   # React.js Frontend
+│   ├── .env.example            # Frontend environment template
 │   ├── src/
 │   │   ├── components/         # UI Components
 │   │   │   ├── Header.jsx
@@ -124,6 +130,7 @@ Aetrix/
 │   └── package.json
 │
 ├── backend/                    # Spring Boot Backend
+│   ├── .env.example            # Backend environment template
 │   ├── src/main/java/com/aetrix/
 │   │   ├── controller/         # REST Controllers
 │   │   │   ├── DashboardController.java
@@ -137,9 +144,12 @@ Aetrix/
 │   │   ├── entity/             # JPA Entities
 │   │   ├── dto/                # Data Transfer Objects
 │   │   └── config/             # Configuration
+│   ├── src/main/resources/
+│   │   └── application.yml     # Spring Boot config (uses env vars)
 │   └── pom.xml
 │
 ├── ML/                         # Machine Learning Module
+│   ├── .env.example            # ML environment template
 │   ├── main.py                 # Entry Point
 │   ├── ml_models/
 │   │   ├── uhi_detection.py    # UHI ML Model
@@ -150,7 +160,7 @@ Aetrix/
 │   │   ├── accuracy_metrics.py # Model Evaluation
 │   │   └── api_endpoints.py    # FastAPI Endpoints
 │   ├── output/                 # Generated JSON Outputs
-│   └── Ahmedabad_MultiSatellite_Data.csv
+│   └── *_TimeSeries_Final.csv  # City satellite data
 │
 └── README.md
 ```
@@ -172,38 +182,55 @@ git clone https://github.com/yourusername/aetrix.git
 cd aetrix
 ```
 
-### 2. Frontend Setup
+### 2. Environment Configuration
+
+Copy the example environment files and configure them with your values:
+
+```bash
+# Root level (for combined deployment)
+cp .env.example .env
+
+# Individual services
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env
+cp ML/.env.example ML/.env
+```
+
+#### Required API Keys
+
+| Service | Variable | Get it from |
+|---------|----------|-------------|
+| **MapTiler** | `REACT_APP_MAPTILER_KEY` | [cloud.maptiler.com](https://cloud.maptiler.com/account/keys/) |
+| **Groq LLM** | `GROQ_API_KEY` | [console.groq.com](https://console.groq.com/keys) |
+
+### 3. Frontend Setup
 ```bash
 cd frontend
 
 # Install dependencies
 npm install
 
-# Create environment file
+# Configure environment (edit .env with your MapTiler API key)
 cp .env.example .env
-
-# Edit .env and add your MapTiler API key
-# REACT_APP_MAPTILER_KEY=your_api_key
 
 # Start development server
 npm start
 ```
 
-### 3. Backend Setup
+### 4. Backend Setup
 ```bash
 cd backend
 
-# Configure database in application.properties
-# spring.datasource.url=jdbc:postgresql://localhost:5432/aetrix
-# spring.datasource.username=your_username
-# spring.datasource.password=your_password
+# Configure environment
+cp .env.example .env
+# Edit .env with your database credentials and GROQ API key
 
 # Build and run
 mvn clean install
 mvn spring-boot:run
 ```
 
-### 4. ML Module Setup
+### 5. ML Module Setup
 ```bash
 cd ML
 
@@ -213,6 +240,10 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r ml_models/requirements.txt
+pip install python-dotenv  # For environment variable support
+
+# Configure environment (optional)
+cp .env.example .env
 
 # Run full analysis
 python main.py
@@ -220,6 +251,99 @@ python main.py
 # Or start API server
 python main.py --api
 ```
+
+---
+
+## Environment Variables
+
+### Backend (`backend/.env`)
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `SERVER_PORT` | Server port | `8080` |
+| `POSTGRES_HOST` | Database host | `localhost` |
+| `POSTGRES_PORT` | Database port | `5432` |
+| `POSTGRES_DB` | Database name | `aetrix_db` |
+| `POSTGRES_USER` | Database user | `aetrix_user` |
+| `POSTGRES_PASSWORD` | Database password | - |
+| `GROQ_API_KEY` | Groq LLM API key | - |
+| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins | `http://localhost:3000` |
+
+### Frontend (`frontend/.env`)
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `REACT_APP_MAPTILER_KEY` | MapTiler API key | - |
+| `REACT_APP_API_URL` | Backend API URL | `http://localhost:8080` |
+| `REACT_APP_ML_API_URL` | ML Service URL | `http://localhost:8000` |
+
+### ML Service (`ML/.env`)
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ML_API_HOST` | API host | `0.0.0.0` |
+| `ML_API_PORT` | API port | `8000` |
+| `CSV_DATA_PATH` | Path to data CSV | `Ahmedabad_TimeSeries_Final.csv` |
+| `LOG_LEVEL` | Logging level | `INFO` |
+
+---
+
+## Deployment
+
+### Railway Deployment
+
+1. **Create a new project** on [Railway](https://railway.app)
+
+2. **Add PostgreSQL** service from the Railway dashboard
+
+3. **Deploy Backend**:
+   - Connect your GitHub repository
+   - Set root directory to `backend`
+   - Add environment variables:
+     ```
+     POSTGRES_HOST=<from Railway PostgreSQL>
+     POSTGRES_PORT=5432
+     POSTGRES_DB=railway
+     POSTGRES_USER=postgres
+     POSTGRES_PASSWORD=<from Railway>
+     GROQ_API_KEY=<your key>
+     CORS_ALLOWED_ORIGINS=https://your-frontend.up.railway.app
+     ```
+
+4. **Deploy Frontend**:
+   - Add another service from the same repo
+   - Set root directory to `frontend`
+   - Add environment variables:
+     ```
+     REACT_APP_MAPTILER_KEY=<your key>
+     REACT_APP_API_URL=https://your-backend.up.railway.app
+     ```
+
+5. **Deploy ML Service** (optional):
+   - Add another service
+   - Set root directory to `ML`
+   - Set start command: `python main.py --api`
+
+### Docker Deployment
+
+```bash
+# Build and run all services
+docker-compose up -d
+
+# Or build individually
+docker build -t aetrix-backend ./backend
+docker build -t aetrix-frontend ./frontend
+docker build -t aetrix-ml ./ML
+```
+
+### Production Checklist
+
+- [ ] Set strong `POSTGRES_PASSWORD`
+- [ ] Configure `CORS_ALLOWED_ORIGINS` with production URLs
+- [ ] Set `JPA_DDL_AUTO=validate` (not `update`)
+- [ ] Set `LOG_LEVEL_APP=INFO` or `WARN`
+- [ ] Enable HTTPS for all services
+- [ ] Rotate API keys periodically
 
 ---
 

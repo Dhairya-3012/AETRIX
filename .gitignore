@@ -5,10 +5,15 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Environment files
+# Environment files (IMPORTANT: keep secrets out of version control)
 .env
 .env.local
 .env.*.local
+.env.development
+.env.production
+*.env
+!.env.example
+!*/.env.example
 
 # Build outputs
 build/
